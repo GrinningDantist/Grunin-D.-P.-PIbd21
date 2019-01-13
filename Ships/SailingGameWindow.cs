@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Ships
 {
-    public partial class GameWindow : Form
+    public partial class SailingGameWindow : Form
     {
         private ITransport ship;
 
@@ -17,7 +17,7 @@ namespace Ships
 
         private bool gameStarted = false;
 
-        public GameWindow()
+        public SailingGameWindow()
         {
             InitializeComponent();
         }

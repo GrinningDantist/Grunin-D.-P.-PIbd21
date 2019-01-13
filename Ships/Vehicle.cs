@@ -10,7 +10,7 @@ namespace Ships
         protected int _pictureWidth;
         protected int _pictureHeight;
 
-        protected Direction dirX = Direction.Right;
+        protected Direction dirX = Direction.Left;
 
         public int MaxSpeed { protected set; get; }
 

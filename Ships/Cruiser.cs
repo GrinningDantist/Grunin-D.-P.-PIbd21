@@ -58,8 +58,8 @@ namespace Ships
             {
                 g.DrawLine(pen, startPointX, (int)_startPosY + 54, startPointX, (int)_startPosY + 51);
                 g.FillRectangle(brush, startPointX - 2, (int)_startPosY + 48, 5, 3);
-                g.DrawLine(pen, startPointX + 2, (int)_startPosY + 49,
-                    startPointX + 5, (int)_startPosY + 49);
+                g.DrawLine(pen, startPointX + sign * 2, (int)_startPosY + 49,
+                    startPointX + sign * 5, (int)_startPosY + 49);
                 startPointX += 20;
             }
             brush = new SolidBrush(FlagColor);
