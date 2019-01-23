@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace Ships
 {
@@ -7,27 +8,29 @@ namespace Ships
         private const int spaceWidth = 350;
         private const int spaceHeight = 90;
 
-        private T[] spaces;
+        private Dictionary<int, T> spaces;
+
+        private int n;
 
         private int PictureWidth { get; set; }
         private int PictureHeight { get; set; }
 
         public Docks(int numberOfSpaces, int pictureWidth, int pictureHeight)
         {
-            spaces = new T[numberOfSpaces];
+            spaces = new Dictionary<int, T>();
+            n = numberOfSpaces;
             PictureWidth = pictureWidth;
             PictureHeight = pictureHeight;
-            for (int i = 0; i < spaces.Length; i++)
-                spaces[i] = null;
         }
 
         public static int operator +(Docks<T> docks, T ship)
         {
-            for (int i = 0; i < docks.spaces.Length; i++)
+            if (docks.spaces.Count == docks.n) return -1;
+            for (int i = 0; i < docks.n; i++)
             {
                 if (docks.CheckSpaceAvailabiliy(i))
                 {
-                    docks.spaces[i] = ship;
+                    docks.spaces.Add(i, ship);
                     docks.spaces[i].SetPosition(5 + i / 5 * spaceWidth + 5,
                         i % 5 * spaceHeight + 15, docks.PictureWidth, docks.PictureHeight);
                     return i;
@@ -38,12 +41,12 @@ namespace Ships
 
         public static T operator -(Docks<T> docks, int index)
         {
-            if (index < 0 || index > docks.spaces.Length - 1)
+            if (index < 0 || index > docks.n)
                 return null;
             if (!docks.CheckSpaceAvailabiliy(index))
             {
                 T ship = docks.spaces[index];
-                docks.spaces[index] = null;
+                docks.spaces.Remove(index);
                 return ship;
             }
             return null;
@@ -51,24 +54,21 @@ namespace Ships
 
         private bool CheckSpaceAvailabiliy(int index)
         {
-            return spaces[index] == null;
+            return !spaces.ContainsKey(index);
         }
 
         public void Draw(Graphics g)
         {
             DrawBorders(g);
-            for (int i = 0; i < spaces.Length; i++)
-            {
-                if (!CheckSpaceAvailabiliy(i))
-                    spaces[i].DrawTransport(g);
-            }
+            foreach (T space in spaces.Values)
+                space.DrawTransport(g);
         }
 
         public void DrawBorders(Graphics g)
         {
             Pen pen = new Pen(Color.White, 3);
-            g.DrawRectangle(pen, 0, 0, (spaces.Length / 5) * spaceWidth, 480);
-            for (int i = 0; i < spaces.Length / 5; i++)
+            g.DrawRectangle(pen, 0, 0, (n / 5) * spaceWidth, 480);
+            for (int i = 0; i < n / 5; i++)
             {
                 for (int j = 0; j < 6; ++j)
                 {
@@ -78,6 +78,5 @@ namespace Ships
                 g.DrawLine(pen, i * spaceWidth, 0, i * spaceWidth, 450);
             }
         }
-
     }
 }

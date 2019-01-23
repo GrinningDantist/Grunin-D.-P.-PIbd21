@@ -31,13 +31,14 @@
             this.drawingArea = new System.Windows.Forms.PictureBox();
             this.btnMoorCruiser = new System.Windows.Forms.Button();
             this.btnMoorWarship = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pickUpMenu = new System.Windows.Forms.GroupBox();
+            this.spaceIndexField = new System.Windows.Forms.MaskedTextBox();
             this.warshipPicture = new System.Windows.Forms.PictureBox();
             this.btnPickUp = new System.Windows.Forms.Button();
             this.lblSpace = new System.Windows.Forms.Label();
-            this.spaceIndexField = new System.Windows.Forms.MaskedTextBox();
+            this.levelList = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.pickUpMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warshipPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.drawingArea.Location = new System.Drawing.Point(13, 13);
             this.drawingArea.Name = "drawingArea";
-            this.drawingArea.Size = new System.Drawing.Size(1409, 485);
+            this.drawingArea.Size = new System.Drawing.Size(1006, 485);
             this.drawingArea.TabIndex = 0;
             this.drawingArea.TabStop = false;
             // 
@@ -59,7 +60,7 @@
             this.btnMoorCruiser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoorCruiser.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnMoorCruiser.ForeColor = System.Drawing.Color.Black;
-            this.btnMoorCruiser.Location = new System.Drawing.Point(1428, 66);
+            this.btnMoorCruiser.Location = new System.Drawing.Point(1025, 219);
             this.btnMoorCruiser.Name = "btnMoorCruiser";
             this.btnMoorCruiser.Size = new System.Drawing.Size(247, 45);
             this.btnMoorCruiser.TabIndex = 4;
@@ -74,7 +75,7 @@
             this.btnMoorWarship.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoorWarship.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnMoorWarship.ForeColor = System.Drawing.Color.Black;
-            this.btnMoorWarship.Location = new System.Drawing.Point(1428, 13);
+            this.btnMoorWarship.Location = new System.Drawing.Point(1025, 166);
             this.btnMoorWarship.Name = "btnMoorWarship";
             this.btnMoorWarship.Size = new System.Drawing.Size(247, 47);
             this.btnMoorWarship.TabIndex = 3;
@@ -82,20 +83,29 @@
             this.btnMoorWarship.UseVisualStyleBackColor = false;
             this.btnMoorWarship.Click += new System.EventHandler(this.btnMoorWarship_Click);
             // 
-            // groupBox1
+            // pickUpMenu
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.spaceIndexField);
-            this.groupBox1.Controls.Add(this.warshipPicture);
-            this.groupBox1.Controls.Add(this.btnPickUp);
-            this.groupBox1.Controls.Add(this.lblSpace);
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(1428, 333);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(247, 165);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Забрать корабль";
+            this.pickUpMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pickUpMenu.Controls.Add(this.spaceIndexField);
+            this.pickUpMenu.Controls.Add(this.warshipPicture);
+            this.pickUpMenu.Controls.Add(this.btnPickUp);
+            this.pickUpMenu.Controls.Add(this.lblSpace);
+            this.pickUpMenu.ForeColor = System.Drawing.Color.White;
+            this.pickUpMenu.Location = new System.Drawing.Point(1025, 333);
+            this.pickUpMenu.Name = "pickUpMenu";
+            this.pickUpMenu.Size = new System.Drawing.Size(247, 165);
+            this.pickUpMenu.TabIndex = 5;
+            this.pickUpMenu.TabStop = false;
+            this.pickUpMenu.Text = "Забрать корабль";
+            // 
+            // spaceIndexField
+            // 
+            this.spaceIndexField.BackColor = System.Drawing.Color.White;
+            this.spaceIndexField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.spaceIndexField.Location = new System.Drawing.Point(51, 19);
+            this.spaceIndexField.Name = "spaceIndexField";
+            this.spaceIndexField.Size = new System.Drawing.Size(25, 20);
+            this.spaceIndexField.TabIndex = 4;
             // 
             // warshipPicture
             // 
@@ -133,30 +143,31 @@
             this.lblSpace.TabIndex = 0;
             this.lblSpace.Text = "Место";
             // 
-            // spaceIndexField
+            // levelList
             // 
-            this.spaceIndexField.BackColor = System.Drawing.Color.White;
-            this.spaceIndexField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.spaceIndexField.Location = new System.Drawing.Point(51, 19);
-            this.spaceIndexField.Name = "spaceIndexField";
-            this.spaceIndexField.Size = new System.Drawing.Size(25, 20);
-            this.spaceIndexField.TabIndex = 4;
+            this.levelList.FormattingEnabled = true;
+            this.levelList.Location = new System.Drawing.Point(1025, 13);
+            this.levelList.Name = "levelList";
+            this.levelList.Size = new System.Drawing.Size(247, 147);
+            this.levelList.TabIndex = 6;
+            this.levelList.SelectedIndexChanged += new System.EventHandler(this.levelList_SelectedIndexChanged);
             // 
             // DocksGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1687, 510);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(1284, 510);
+            this.Controls.Add(this.levelList);
+            this.Controls.Add(this.pickUpMenu);
             this.Controls.Add(this.btnMoorCruiser);
             this.Controls.Add(this.btnMoorWarship);
             this.Controls.Add(this.drawingArea);
             this.Name = "DocksGameWindow";
             this.Text = "Доки";
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.pickUpMenu.ResumeLayout(false);
+            this.pickUpMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warshipPicture)).EndInit();
             this.ResumeLayout(false);
 
@@ -167,10 +178,11 @@
         private System.Windows.Forms.PictureBox drawingArea;
         private System.Windows.Forms.Button btnMoorCruiser;
         private System.Windows.Forms.Button btnMoorWarship;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox pickUpMenu;
         private System.Windows.Forms.PictureBox warshipPicture;
         private System.Windows.Forms.Button btnPickUp;
         private System.Windows.Forms.Label lblSpace;
         private System.Windows.Forms.MaskedTextBox spaceIndexField;
+        private System.Windows.Forms.ListBox levelList;
     }
 }

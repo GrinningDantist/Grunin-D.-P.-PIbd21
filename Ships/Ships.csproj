@@ -55,6 +55,7 @@
     <Compile Include="DocksGameWindow.Designer.cs">
       <DependentUpon>DocksGameWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="MultilevelDocks.cs" />
     <Compile Include="SailingGameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
