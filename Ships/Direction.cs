@@ -1,6 +1,6 @@
 ﻿namespace Ships
 {
-    enum Direction
+    public enum Direction
     {
         None, Up, Down, Left, Right
     }

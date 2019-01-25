@@ -10,7 +10,7 @@ namespace Ships
     {
         List<Docks<ITransport>> levels;
 
-        private const int levelCapacity = 15;
+        private const int levelCapacity = 10;
 
         public MultilevelDocks(int NumberOfLevels, int pictureWidth, int pictureHeight)
         {

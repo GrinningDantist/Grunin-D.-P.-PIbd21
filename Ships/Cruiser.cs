@@ -66,6 +66,11 @@ namespace Ships
             if (Flag) g.FillRectangle(brush, stemPosX + sign * 60, (int)_startPosY, 10, 6);
             g.DrawLine(pen, stemPosX + sign * 60, (int)_startPosY + 30,
                 stemPosX + sign * 60, (int)_startPosY);
-        } 
+        }
+
+        public void ChangeFlagColor(Color color)
+        {
+            FlagColor = color;
+        }
     }
 }

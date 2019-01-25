@@ -3,6 +3,8 @@ using System.Windows.Forms;
 
 namespace Ships
 {
+    public delegate void ShipDel(ITransport ship);
+
     static class Program
     {
         /// <summary>
