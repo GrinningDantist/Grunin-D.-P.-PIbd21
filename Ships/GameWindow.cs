@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Timers;
 using System.Windows.Forms;
@@ -27,7 +27,7 @@ namespace Ships
         {
             Random rnd = new Random();
             ship = new Battleship(rnd.Next(60, 100), rnd.Next(300, 500), Color.White);
-            ship.SetPos(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
+            ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
 
@@ -44,6 +44,7 @@ namespace Ships
             delayTimer = new System.Timers.Timer(1000 / 60);
             delayTimer.Elapsed += DelayTimerElapsed;
             delayTimer.AutoReset = true;
+            delayTimer.Enabled = false;
         }
 
         private void SetMoveTimer()
@@ -51,6 +52,7 @@ namespace Ships
             moveTimer = new System.Timers.Timer(1000 / 3);
             moveTimer.Elapsed += MoveTimerElapsed;
             moveTimer.AutoReset = true;
+            moveTimer.Enabled = false;
         }
 
         private void DelayTimerElapsed(object sender, ElapsedEventArgs e)

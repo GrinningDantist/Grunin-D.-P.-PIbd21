@@ -1,4 +1,4 @@
-﻿namespace Ships
+namespace Ships
 {
     partial class GameWindow
     {
@@ -34,7 +34,7 @@
             // 
             // drawingArea
             // 
-            this.drawingArea.BackColor = System.Drawing.Color.Black;
+            this.drawingArea.BackColor = System.Drawing.Color.Transparent;
             this.drawingArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingArea.Location = new System.Drawing.Point(0, 0);
             this.drawingArea.Name = "drawingArea";
@@ -46,6 +46,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.drawingArea);
             this.Name = "GameWindow";
