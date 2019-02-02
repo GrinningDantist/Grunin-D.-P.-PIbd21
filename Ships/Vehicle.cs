@@ -4,11 +4,11 @@ namespace Ships
 {
     abstract class Vehicle : ITransport
     {
-        protected float _startPosX;
-        protected float _startPosY;
+        protected float startPosX;
+        protected float startPosY;
 
-        protected int _pictureWidth;
-        protected int _pictureHeight;
+        protected int pictureWidth;
+        protected int pictureHeight;
 
         protected Direction dirX = Direction.Right;
 
@@ -20,10 +20,10 @@ namespace Ships
 
         public void SetPosition(int x, int y, int width, int height)
         {
-            _startPosX = x;
-            _startPosY = y;
-            _pictureWidth = width;
-            _pictureHeight = height;
+            startPosX = x;
+            startPosY = y;
+            pictureWidth = width;
+            pictureHeight = height;
         }
 
         public abstract void MoveTransport(Direction direction);

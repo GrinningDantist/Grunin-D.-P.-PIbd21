@@ -33,7 +33,7 @@ namespace Ships
         private void CreateCruiser()
         {
             Random rnd = new Random();
-            ship = new Cruiser(rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
+            ship = new Battleship(rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
