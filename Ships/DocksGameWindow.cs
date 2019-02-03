@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -46,15 +46,15 @@ namespace Ships
             Draw();
         }
 
-        private void btnMoorCruiser_Click(object sender, EventArgs e)
+        private void btnMoorBattleship_Click(object sender, EventArgs e)
         {
             int index = levelList.SelectedIndex;
             if (index == -1) return;
             ColorDialog mainColorDialog = new ColorDialog();
-            if (mainColorDialog.ShowDialog() != DialogResult.OK) return;
+            if (mainColorDialog.ShowDialog() == DialogResult.Cancel) return;
             ColorDialog flagColorDialog = new ColorDialog();
-            if (flagColorDialog.ShowDialog() != DialogResult.OK) return;
-            ITransport ship = new Cruiser(100, 1000, mainColorDialog.Color,
+            if (flagColorDialog.ShowDialog() == DialogResult.Cancel) return;
+            ITransport ship = new Battleship(100, 1000, mainColorDialog.Color,
                 flagColorDialog.Color, true);
             int place = docks[index] + ship;
             if (place == -1)
@@ -70,10 +70,8 @@ namespace Ships
             int levelIndex = levelList.SelectedIndex;
             if (levelIndex == -1) return;
             if (spaceIndexField.Text == "") return;
-            int shipIndex;
-            bool parsingSuccessful = int.TryParse(spaceIndexField.Text, out shipIndex);
-            if (!parsingSuccessful) return;
-            var ship = docks[levelIndex] - shipIndex;
+            int shipIndex = int.Parse(spaceIndexField.Text);
+            ITransport ship = docks[levelIndex] - shipIndex;
             if (ship == null) return;
             Bitmap bmp = new Bitmap(warshipPicture.Width, warshipPicture.Height);
             Graphics g = Graphics.FromImage(bmp);
