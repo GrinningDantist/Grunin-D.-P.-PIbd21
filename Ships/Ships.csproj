@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cruiser.cs" />
+    <Compile Include="Battleship.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Docks.cs" />
     <Compile Include="DocksGameWindow.cs">

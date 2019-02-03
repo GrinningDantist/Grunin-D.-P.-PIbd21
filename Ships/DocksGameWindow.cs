@@ -11,7 +11,7 @@ namespace Ships
         public DocksGameWindow()
         {
             InitializeComponent();
-            docks = new Docks<ITransport>(20, drawingArea.Width, drawingArea.Height);
+            docks = new Docks<ITransport>(10, drawingArea.Width, drawingArea.Height);
             Draw();
         }
 
@@ -32,13 +32,13 @@ namespace Ships
             Draw();
         }
 
-        private void btnMoorCruiser_Click(object sender, EventArgs e)
+        private void btnMoorBattleship_Click(object sender, EventArgs e)
         {
             ColorDialog mainColorDialog = new ColorDialog();
-            if (mainColorDialog.ShowDialog() != DialogResult.OK) return;
+            if (mainColorDialog.ShowDialog() == DialogResult.Cancel) return;
             ColorDialog flagColorDialog = new ColorDialog();
-            if (flagColorDialog.ShowDialog() != DialogResult.OK) return;
-            ITransport ship = new Cruiser(100, 1000, mainColorDialog.Color,
+            if (flagColorDialog.ShowDialog() == DialogResult.Cancel) return;
+            ITransport ship = new Battleship(100, 1000, mainColorDialog.Color,
                 flagColorDialog.Color, true);
             int place = docks + ship;
             Draw();
@@ -47,17 +47,13 @@ namespace Ships
         private void btnPickUp_Click(object sender, EventArgs e)
         {
             if (spaceIndexField.Text == "") return;
-            int index;
-            bool parsingSuccessful = int.TryParse(spaceIndexField.Text, out index);
-            if (!parsingSuccessful) return;
+            int index = int.Parse(spaceIndexField.Text);
             ITransport ship = docks - index;
+            if (ship == null) return;
             Bitmap bmp = new Bitmap(warshipPicture.Width, warshipPicture.Height);
-            if (ship != null)
-            {
-                Graphics g = Graphics.FromImage(bmp);
-                ship.SetPosition(5, 5, warshipPicture.Width, warshipPicture.Height);
-                ship.DrawTransport(g);
-            }
+            Graphics g = Graphics.FromImage(bmp);
+            ship.SetPosition(5, 5, warshipPicture.Width, warshipPicture.Height);
+            ship.DrawTransport(g);
             warshipPicture.Image = bmp;
             Draw();
         }

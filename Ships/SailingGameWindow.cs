@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Timers;
 using System.Windows.Forms;
@@ -30,10 +30,10 @@ namespace Ships
             Draw();
         }
 
-        private void CreateCruiser()
+        private void CreateBattleship()
         {
             Random rnd = new Random();
-            ship = new Cruiser(rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
+            ship = new Battleship(rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
@@ -84,9 +84,9 @@ namespace Ships
             gameStarted = true;
         }
 
-        private void btnCruiser_Click(object sender, EventArgs e)
+        private void btnBattleship_Click(object sender, EventArgs e)
         {
-            CreateCruiser();
+            CreateBattleship();
             SetDelayTimer();
             SetMoveTimer();
             gameStarted = true;
