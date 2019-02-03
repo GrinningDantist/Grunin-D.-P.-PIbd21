@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -32,11 +32,6 @@ namespace Ships
             drawingArea.Image = bmp;
         }
 
-        private void levelList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Draw();
-        }
-
         private void btnSelectShip_Click(object sender, EventArgs e)
         {
             if (levelList.SelectedIndex == -1)
@@ -58,6 +53,27 @@ namespace Ships
             if (space > -1) Draw();
             else MessageBox.Show("Мест нет", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnPickUp_Click(object sender, EventArgs e)
+        {
+            int levelIndex = levelList.SelectedIndex;
+            if (levelIndex == -1) return;
+            if (spaceIndexField.Text == "") return;
+            int shipIndex = int.Parse(spaceIndexField.Text);
+            ITransport ship = docks[levelIndex] - shipIndex;
+            if (ship == null) return;
+            Bitmap bmp = new Bitmap(warshipPicture.Width, warshipPicture.Height);
+            Graphics g = Graphics.FromImage(bmp);
+            ship.SetPosition(5, 5, warshipPicture.Width, warshipPicture.Height);
+            ship.DrawTransport(g);
+            warshipPicture.Image = bmp;
+            Draw();
+        }
+
+        private void levelList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw();
         }
     }
 }

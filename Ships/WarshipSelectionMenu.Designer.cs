@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.typeButtons = new System.Windows.Forms.GroupBox();
-            this.lblCruiser = new System.Windows.Forms.Label();
+            this.lblBattleship = new System.Windows.Forms.Label();
             this.lblWarship = new System.Windows.Forms.Label();
             this.picturePanel = new System.Windows.Forms.Panel();
             this.warshipPicture = new System.Windows.Forms.PictureBox();
@@ -55,7 +55,7 @@
             // typeButtons
             // 
             this.typeButtons.BackColor = System.Drawing.Color.Transparent;
-            this.typeButtons.Controls.Add(this.lblCruiser);
+            this.typeButtons.Controls.Add(this.lblBattleship);
             this.typeButtons.Controls.Add(this.lblWarship);
             this.typeButtons.Font = new System.Drawing.Font("Impact", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.typeButtons.ForeColor = System.Drawing.Color.White;
@@ -66,18 +66,18 @@
             this.typeButtons.TabStop = false;
             this.typeButtons.Text = "ТИП";
             // 
-            // lblCruiser
+            // lblBattleship
             // 
-            this.lblCruiser.BackColor = System.Drawing.Color.White;
-            this.lblCruiser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblCruiser.ForeColor = System.Drawing.Color.Black;
-            this.lblCruiser.Location = new System.Drawing.Point(6, 71);
-            this.lblCruiser.Name = "lblCruiser";
-            this.lblCruiser.Size = new System.Drawing.Size(170, 38);
-            this.lblCruiser.TabIndex = 1;
-            this.lblCruiser.Text = "КРЕЙСЕР";
-            this.lblCruiser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCruiser.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblCruiser_MouseDown);
+            this.lblBattleship.BackColor = System.Drawing.Color.White;
+            this.lblBattleship.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblBattleship.ForeColor = System.Drawing.Color.Black;
+            this.lblBattleship.Location = new System.Drawing.Point(6, 71);
+            this.lblBattleship.Name = "lblBattleship";
+            this.lblBattleship.Size = new System.Drawing.Size(170, 38);
+            this.lblBattleship.TabIndex = 1;
+            this.lblBattleship.Text = "ЛИНКОР";
+            this.lblBattleship.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblBattleship.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblBattleship_MouseDown);
             // 
             // lblWarship
             // 
@@ -285,7 +285,7 @@
 
         #endregion
         private System.Windows.Forms.GroupBox typeButtons;
-        private System.Windows.Forms.Label lblCruiser;
+        private System.Windows.Forms.Label lblBattleship;
         private System.Windows.Forms.Label lblWarship;
         private System.Windows.Forms.Panel picturePanel;
         private System.Windows.Forms.PictureBox warshipPicture;

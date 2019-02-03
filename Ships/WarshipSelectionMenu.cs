@@ -42,9 +42,9 @@ namespace Ships
                 | DragDropEffects.Copy);
         }
 
-        private void lblCruiser_MouseDown(object sender, MouseEventArgs e)
+        private void lblBattleship_MouseDown(object sender, MouseEventArgs e)
         {
-            lblCruiser.DoDragDrop(lblCruiser.Text, DragDropEffects.Move
+            lblBattleship.DoDragDrop(lblBattleship.Text, DragDropEffects.Move
                 | DragDropEffects.Copy);
         }
 
@@ -59,7 +59,7 @@ namespace Ships
             if (e.Data.GetDataPresent(DataFormats.Text)
                 || e.Data.GetDataPresent(typeof(Color))
                 && (btnMainColorPressed || btnFlagColorPressed
-                && (ship is Cruiser)))
+                && (ship is Battleship)))
             {
                 e.Effect = DragDropEffects.Copy;
             }
@@ -78,8 +78,8 @@ namespace Ships
                     case "ВОЕННЫЙ КОРАБЛЬ":
                         ship = new Warship(100, 1000, Color.Gray);
                         break;
-                    case "КРЕЙСЕР":
-                        ship = new Cruiser(100, 1000, Color.Gray,
+                    case "ЛИНКОР":
+                        ship = new Battleship(100, 1000, Color.Gray,
                     Color.Red, true);
                         break;
                 }
@@ -89,9 +89,9 @@ namespace Ships
             {
                 if (btnMainColorPressed)
                     ship.Repaint((Color)e.Data.GetData(typeof(Color)));
-                else if (btnFlagColorPressed && ship is Cruiser)
+                else if (btnFlagColorPressed && ship is Battleship)
                 {
-                    (ship as Cruiser).ChangeFlagColor(
+                    (ship as Battleship).ChangeFlagColor(
                         (Color)e.Data.GetData(typeof(Color)));
                 }
             }
