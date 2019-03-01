@@ -6,7 +6,7 @@ namespace Ships
 {
     public partial class DocksGameWindow : Form
     {
-        private MultilevelDocks docks;
+        private MultilevelDocks levels;
 
         private WarshipSelectionMenu menu;
 
@@ -15,7 +15,7 @@ namespace Ships
         public DocksGameWindow()
         {
             InitializeComponent();
-            docks = new MultilevelDocks(numberOfLevels, drawingArea.Width,
+            levels = new MultilevelDocks(numberOfLevels, drawingArea.Width,
                 drawingArea.Height);
             for (int i = 1; i <= numberOfLevels; i++)
                 levelList.Items.Add("Уровень" + i);
@@ -28,7 +28,7 @@ namespace Ships
             if (index == -1) return;
             Bitmap bmp = new Bitmap(drawingArea.Width, drawingArea.Height);
             Graphics g = Graphics.FromImage(bmp);
-            docks[index].Draw(g);
+            levels[index].Draw(g);
             drawingArea.Image = bmp;
         }
 
@@ -49,7 +49,7 @@ namespace Ships
 
         private void AddShip(ITransport ship)
         {
-            int space = docks[levelList.SelectedIndex] + ship;
+            int space = levels[levelList.SelectedIndex] + ship;
             if (space > -1) Draw();
             else MessageBox.Show("Мест нет", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -61,7 +61,7 @@ namespace Ships
             if (levelIndex == -1) return;
             if (spaceIndexField.Text == "") return;
             int shipIndex = int.Parse(spaceIndexField.Text);
-            ITransport ship = docks[levelIndex] - shipIndex;
+            ITransport ship = levels[levelIndex] - shipIndex;
             if (ship == null) return;
             Bitmap bmp = new Bitmap(warshipPicture.Width, warshipPicture.Height);
             Graphics g = Graphics.FromImage(bmp);
@@ -74,6 +74,32 @@ namespace Ships
         private void levelList_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                bool savedSuccessfully = levels.SaveData(saveFileDialog.FileName);
+                if (!savedSuccessfully)
+                {
+                    MessageBox.Show("Не удалось сохранить файл", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                bool loadedSuccessfully = levels.LoadData(openFileDialog.FileName);
+                if (!loadedSuccessfully)
+                {
+                    MessageBox.Show("Ошибка чтения файла. Файл повреждён или содержит неверные данные",
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

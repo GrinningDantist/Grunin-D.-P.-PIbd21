@@ -15,6 +15,15 @@ namespace Ships
             MainColor = mainColor;
         }
 
+        public Warship(string data)
+        {
+            string[] parameters = data.Split('/');
+            if (parameters.Length != 3) return;
+            MaxSpeed = int.Parse(parameters[0]);
+            Weight = int.Parse(parameters[1]);
+            MainColor = Color.FromName(parameters[2]);
+        }
+
         public override void MoveTransport(Direction direction)
         {
             if (direction == Direction.None) return;
@@ -99,6 +108,11 @@ namespace Ships
             Point point4 = new Point((int)startPosX + Math.Abs(stemPosX - 74), (int)startPosY + 44);
             Point[] points = { point1, point2, point3, point4 };
             g.FillPolygon(brush, points);
+        }
+
+        public override string ToString()
+        {
+            return MaxSpeed + "/" + Weight + "/" + MainColor.Name;
         }
     }
 }

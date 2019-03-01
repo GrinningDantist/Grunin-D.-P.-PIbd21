@@ -12,6 +12,8 @@ namespace Ships
 
         private int n;
 
+        public bool IsEmpty { get { return spaces.Count == 0; } }
+
         private int PictureWidth { get; set; }
         private int PictureHeight { get; set; }
 
@@ -76,6 +78,25 @@ namespace Ships
                     i * spaceWidth + 250, j * spaceHeight);
                 }
                 g.DrawLine(pen, i * spaceWidth, 0, i * spaceWidth, 450);
+            }
+        }
+
+        public T this[int i]
+        {
+            get
+            {
+                if (spaces.ContainsKey(i))
+                    return spaces[i];
+                else return null;
+            }
+            set
+            {
+                if (CheckSpaceAvailabiliy(i))
+                {
+                    spaces.Add(i, value);
+                    spaces[i].SetPosition(5 + i / 5 * spaceWidth + 5,
+                        i % 5 * spaceHeight + 15, PictureWidth, PictureHeight);
+                }
             }
         }
     }

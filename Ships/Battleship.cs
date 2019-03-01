@@ -24,6 +24,18 @@ namespace Ships
             NumberOfCannons = new Random().Next(1, 4);
         }
 
+        public Battleship(string data) : base(data)
+        {
+            string[] parameters = data.Split('/');
+            if (parameters.Length != 6) return;
+            MaxSpeed = int.Parse(parameters[0]);
+            Weight = int.Parse(parameters[1]);
+            MainColor = Color.FromName(parameters[2]);
+            numberOfCannons = int.Parse(parameters[3]);
+            Flag = bool.Parse(parameters[4]);
+            FlagColor = Color.FromName(parameters[5]);
+        }
+
         public override void DrawTransport(Graphics g)
         {
             int stemPosX = GetStemPosX();
@@ -70,6 +82,12 @@ namespace Ships
         public void ChangeFlagColor(Color color)
         {
             FlagColor = color;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + "/" + NumberOfCannons + "/"
+                + Flag + "/" + FlagColor.Name;
         }
     }
 }
