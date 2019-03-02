@@ -42,35 +42,37 @@ namespace Ships
             }
         }
 
-        public bool SaveData(string filePath)
+        public void SaveData(string filePath)
         {
             using (StreamWriter saveFile = new StreamWriter(filePath, false, Encoding.UTF8))
             {
                 saveFile.Write("number_of_levels " + levels.Count);
                 for (int i = 0; i < levels.Count; i++)
                 {
-                    if (levels[i].IsEmpty) continue;
-                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, levels[i]);
-                    for (int j = 0; j < levelCapacity; j++)
+                    try
                     {
-                        var ship = levels[i][j];
-                        if (ship == null) continue;
-                        string shipType = ship.GetType().Name.ToLower();
-                        saveFile.Write(Environment.NewLine + shipType + " " + ship + " " + j);
+                        if (levels[i].IsEmpty) continue;
+                        saveFile.Write("{0}{0}level {1}", Environment.NewLine, levels[i]);
+                        for (int j = 0; j < levelCapacity; j++)
+                        {
+                            var ship = levels[i][j];
+                            if (ship == null) continue;
+                            string shipType = ship.GetType().Name.ToLower();
+                            saveFile.Write(Environment.NewLine + shipType + " " + ship + " " + j);
+                        }
                     }
+                    finally { }
                 }
             }
-            return true;
         }
 
-        public bool LoadData(string filePath)
+        public void LoadData(string filePath)
         {
-            if (!File.Exists(filePath)) return false;
+            if (!File.Exists(filePath)) throw new FileNotFoundException();
             string[] dataStrings = CopyDataToStringArray(filePath);
             if (dataStrings.Length == 0 || !CheckDataCorrectness(dataStrings))
-                return false;
+                throw new Exception("Неверный формат файла");
             ReplaceData(dataStrings);
-            return true;
         }
 
         private string[] CopyDataToStringArray(string filePath)

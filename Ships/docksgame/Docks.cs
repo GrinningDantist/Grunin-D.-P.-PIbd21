@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Ships
@@ -27,7 +28,8 @@ namespace Ships
 
         public static int operator +(Docks<T> docks, T ship)
         {
-            if (docks.spaces.Count == docks.n) return -1;
+            if (docks.spaces.Count == docks.n)
+                throw new DocksOverflowException();
             for (int i = 0; i < docks.n; i++)
             {
                 if (docks.CheckSpaceAvailabiliy(i))
@@ -43,15 +45,16 @@ namespace Ships
 
         public static T operator -(Docks<T> docks, int index)
         {
-            if (index < 0 || index > docks.n)
-                return null;
+            if (index < 0 || index >= docks.n)
+                throw new IndexOutOfRangeException(
+                    "Места с данным индексом не существует");
             if (!docks.CheckSpaceAvailabiliy(index))
             {
                 T ship = docks.spaces[index];
                 docks.spaces.Remove(index);
                 return ship;
             }
-            return null;
+            throw new ShipNotFoundException(index);
         }
 
         private bool CheckSpaceAvailabiliy(int index)
@@ -87,7 +90,7 @@ namespace Ships
             {
                 if (spaces.ContainsKey(i))
                     return spaces[i];
-                else return null;
+                else throw new ShipNotFoundException(i);
             }
             set
             {
@@ -97,6 +100,7 @@ namespace Ships
                     spaces[i].SetPosition(5 + i / 5 * spaceWidth + 5,
                         i % 5 * spaceHeight + 15, PictureWidth, PictureHeight);
                 }
+                else throw new SpaceTakenException(i);
             }
         }
     }
