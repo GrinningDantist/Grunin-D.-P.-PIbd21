@@ -1,4 +1,5 @@
 using NLog;
+using Ships.docksgame.exceptions;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -63,6 +64,11 @@ namespace Ships
             catch (DocksOverflowException ex)
             {
                 MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch (ShipAlreadyExistsException ex)
+            {
+                MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
             catch (Exception ex)
@@ -147,6 +153,13 @@ namespace Ships
                     MessageBox.Show(ex.Message, "Ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            levels.Sort();
+            logger.Info("Сортировка уровней");
+            Draw();
         }
     }
 }

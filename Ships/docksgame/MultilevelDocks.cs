@@ -47,21 +47,16 @@ namespace Ships
             using (StreamWriter saveFile = new StreamWriter(filePath, false, Encoding.UTF8))
             {
                 saveFile.Write("number_of_levels " + levels.Count);
-                for (int i = 0; i < levels.Count; i++)
+                foreach (var level in levels)
                 {
-                    try
+                    if (level.IsEmpty) continue;
+                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, level);
+                    foreach (ITransport ship in level)
                     {
-                        if (levels[i].IsEmpty) continue;
-                        saveFile.Write("{0}{0}level {1}", Environment.NewLine, levels[i]);
-                        for (int j = 0; j < levelCapacity; j++)
-                        {
-                            var ship = levels[i][j];
-                            if (ship == null) continue;
-                            string shipType = ship.GetType().Name.ToLower();
-                            saveFile.Write(Environment.NewLine + shipType + " " + ship + " " + j);
-                        }
+                        if (ship == null) continue;
+                        string shipType = ship.GetType().Name.ToLower();
+                        saveFile.Write(Environment.NewLine + shipType + ' ' + ship);
                     }
-                    finally { }
                 }
             }
         }
@@ -97,6 +92,7 @@ namespace Ships
             for (int i = 1; i < dataStrings.Length; i++)
             {
                 data = dataStrings[i].Split(' ');
+                if (data.Length != 2) return false;
                 if (data[0] == "level")
                 {
                     if (!CheckLevelDataCorrectness(data)) return false;
@@ -113,7 +109,7 @@ namespace Ships
 
         private bool CheckLevelsNumberCorrectness(string[] data)
         {
-            if (data.Length != 2 || data[0] != "number_of_levels"
+            if (data[0] != "number_of_levels"
                 || !int.TryParse(data[1], out int numberOfLevels))
                 return false;
             return true;
@@ -121,23 +117,21 @@ namespace Ships
 
         private bool CheckLevelDataCorrectness(string[] data)
         {
-            if (data.Length != 2 || !int.TryParse(data[1], out int result))
+            if (!int.TryParse(data[1], out int result))
                 return false;
             return true;
         }
 
         private bool CheckShipDataCorrectness(string[] data)
         {
-            if (data.Length != 3) return false;
             string[] shipParameters = data[1].Split('/');
-            if (shipParameters.Length < 3
-                        || !int.TryParse(shipParameters[0], out int maxSpeed)
-                        || !float.TryParse(shipParameters[1], out float weight)
-                        || data[0] == "battleship" && (shipParameters.Length != 6
-                        || !int.TryParse(shipParameters[3], out int numberOfCannons)
-                        || !bool.TryParse(shipParameters[4], out bool flag)))
-                return false;
-            if (!int.TryParse(data[2], out int index))
+            if (shipParameters.Length < 4
+                || !int.TryParse(shipParameters[0], out int index)
+                || !int.TryParse(shipParameters[1], out int maxSpeed)
+                || !float.TryParse(shipParameters[2], out float weight)
+                || data[0] == "battleship" && (shipParameters.Length != 7
+                || !int.TryParse(shipParameters[4], out int numberOfCannons)
+                || !bool.TryParse(shipParameters[5], out bool flag)))
                 return false;
             return true;
         }
@@ -165,6 +159,11 @@ namespace Ships
                 int shipIndex = int.Parse(data[2]);
                 levels[currentLevel][shipIndex] = ship;
             }
+        }
+
+        public void Sort()
+        {
+            levels.Sort();
         }
     }
 }

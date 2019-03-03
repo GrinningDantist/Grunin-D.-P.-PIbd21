@@ -3,13 +3,16 @@ using System.Drawing;
 
 namespace Ships
 {
-    class Warship : Vehicle
+    class Warship : Vehicle, IComparable<Warship>, IEquatable<Warship>
     {
         protected const int warshipWidth = 230;
         protected const int warshipHeight = 60;
 
-        public Warship(int maxSpeed, float weight, Color mainColor)
+        public int Index { get; protected set; }
+
+        public Warship(int index, int maxSpeed, float weight, Color mainColor)
         {
+            Index = index;
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
@@ -18,10 +21,11 @@ namespace Ships
         public Warship(string data)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 3) return;
-            MaxSpeed = int.Parse(parameters[0]);
-            Weight = int.Parse(parameters[1]);
-            MainColor = Color.FromName(parameters[2]);
+            if (parameters.Length != 4) return;
+            Index = int.Parse(parameters[0]);
+            MaxSpeed = int.Parse(parameters[1]);
+            Weight = int.Parse(parameters[2]);
+            MainColor = Color.FromName(parameters[3]);
         }
 
         public override void MoveTransport(Direction direction)
@@ -112,7 +116,42 @@ namespace Ships
 
         public override string ToString()
         {
-            return MaxSpeed + "/" + Weight + "/" + MainColor.Name;
+            return Index + '/' + MaxSpeed + '/' + Weight + '/' + MainColor.Name;
+        }
+
+        public int CompareTo(Warship other)
+        {
+            if (other == null)
+                return -1;
+            if (MaxSpeed != other.MaxSpeed)
+                return MaxSpeed.CompareTo(other.MaxSpeed);
+            else if (Weight != other.Weight)
+                return Weight.CompareTo(other.Weight);
+            else if (MainColor != other.MainColor)
+                return MainColor.Name.CompareTo(other.MainColor.Name);
+            return 0;
+        }
+
+        public bool Equals(Warship other)
+        {
+            if (other == null
+                || GetType().Name != other.GetType().Name
+                || MaxSpeed != other.MaxSpeed
+                || Weight != other.Weight
+                || MainColor != other.MainColor)
+                return false;
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Warship)) return false;
+            else return base.Equals(obj as Warship);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

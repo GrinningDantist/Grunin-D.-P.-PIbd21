@@ -42,6 +42,7 @@
             this.loadButton = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btnSort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
             this.pickUpMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warshipPicture)).BeginInit();
@@ -81,9 +82,9 @@
             this.pickUpMenu.Font = new System.Drawing.Font("Impact", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.pickUpMenu.ForeColor = System.Drawing.Color.White;
             this.pickUpMenu.Location = new System.Drawing.Point(707, 306);
-            this.pickUpMenu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pickUpMenu.Margin = new System.Windows.Forms.Padding(2);
             this.pickUpMenu.Name = "pickUpMenu";
-            this.pickUpMenu.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pickUpMenu.Padding = new System.Windows.Forms.Padding(2);
             this.pickUpMenu.Size = new System.Drawing.Size(239, 211);
             this.pickUpMenu.TabIndex = 5;
             this.pickUpMenu.TabStop = false;
@@ -94,7 +95,7 @@
             this.spaceIndexField.BackColor = System.Drawing.Color.White;
             this.spaceIndexField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.spaceIndexField.Location = new System.Drawing.Point(45, 19);
-            this.spaceIndexField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.spaceIndexField.Margin = new System.Windows.Forms.Padding(2);
             this.spaceIndexField.Mask = "00";
             this.spaceIndexField.Name = "spaceIndexField";
             this.spaceIndexField.Size = new System.Drawing.Size(21, 21);
@@ -127,7 +128,7 @@
             // warshipPicture
             // 
             this.warshipPicture.Location = new System.Drawing.Point(4, 79);
-            this.warshipPicture.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.warshipPicture.Margin = new System.Windows.Forms.Padding(2);
             this.warshipPicture.Name = "warshipPicture";
             this.warshipPicture.Size = new System.Drawing.Size(231, 128);
             this.warshipPicture.TabIndex = 0;
@@ -188,12 +189,27 @@
             this.openFileDialog.FileName = "openFileDialog1";
             this.openFileDialog.Filter = "txt file|*.txt";
             // 
+            // btnSort
+            // 
+            this.btnSort.BackColor = System.Drawing.Color.White;
+            this.btnSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSort.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSort.ForeColor = System.Drawing.Color.Black;
+            this.btnSort.Location = new System.Drawing.Point(707, 216);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(239, 31);
+            this.btnSort.TabIndex = 8;
+            this.btnSort.Text = "СОРТИРОВАТЬ";
+            this.btnSort.UseVisualStyleBackColor = false;
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
+            // 
             // DocksGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(958, 530);
+            this.Controls.Add(this.btnSort);
             this.Controls.Add(this.levelList);
             this.Controls.Add(this.pickUpMenu);
             this.Controls.Add(this.btnSelectShip);
@@ -230,5 +246,6 @@
         private System.Windows.Forms.ToolStripMenuItem loadButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button btnSort;
     }
 }

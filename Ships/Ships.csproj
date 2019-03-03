@@ -57,6 +57,7 @@
     <Compile Include="Battleship.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="docksgame\Docks.cs" />
+    <Compile Include="docksgame\exceptions\ShipAlreadyExistsException.cs" />
     <Compile Include="docksgame\menus\DocksGameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
