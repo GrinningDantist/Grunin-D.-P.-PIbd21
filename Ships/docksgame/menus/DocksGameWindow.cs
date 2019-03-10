@@ -142,6 +142,11 @@ namespace Ships
                 {
                     MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Неверный формат данных. Файл повреждён или не является файлом сохранения",
+                        "Ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error);

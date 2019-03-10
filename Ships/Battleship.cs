@@ -27,7 +27,7 @@ namespace Ships
         public Battleship(string data) : base(data)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 6) return;
+            if (parameters.Length != 6) throw new FormatException();
             MaxSpeed = int.Parse(parameters[0]);
             Weight = int.Parse(parameters[1]);
             MainColor = Color.FromName(parameters[2]);

@@ -18,7 +18,7 @@ namespace Ships
         public Warship(string data)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 3) return;
+            if (parameters.Length != 3) throw new FormatException();
             MaxSpeed = int.Parse(parameters[0]);
             Weight = int.Parse(parameters[1]);
             MainColor = Color.FromName(parameters[2]);
