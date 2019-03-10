@@ -28,7 +28,7 @@ namespace Ships
         public Battleship(string data) : base(data)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 7) return;
+            if (parameters.Length != 7) throw new FormatException();
             Index = int.Parse(parameters[0]);
             MaxSpeed = int.Parse(parameters[1]);
             Weight = int.Parse(parameters[2]);
@@ -88,8 +88,8 @@ namespace Ships
 
         public override string ToString()
         {
-            return base.ToString() + '/' + NumberOfCannons + '/'
-                + Flag + '/' + FlagColor.Name;
+            return base.ToString() + "/" + NumberOfCannons + "/"
+                + Flag + "/" + FlagColor.Name;
         }
 
         public int CompareTo(Battleship other)

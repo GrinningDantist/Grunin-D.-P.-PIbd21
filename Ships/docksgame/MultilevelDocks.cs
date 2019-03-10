@@ -17,19 +17,20 @@ namespace Ships
 
         public MultilevelDocks(int numberOfLevels, int pictureWidth, int pictureHeight)
         {
-            levels = new List<Docks<ITransport>>();
+            levels = CreateLevels(numberOfLevels, pictureWidth, pictureHeight);
             this.pictureWidth = pictureWidth;
             this.pictureHeight = pictureHeight;
-            CreateLevels(numberOfLevels, pictureWidth, pictureHeight);
         }
 
-        private void CreateLevels(int numberOfLevels, int pictureWidth, int pictureHeight)
+        private List<Docks<ITransport>> CreateLevels(int numberOfLevels, int pictureWidth, int pictureHeight)
         {
+            List<Docks<ITransport>> newLevels = new List<Docks<ITransport>>();
             for (int i = 0; i < numberOfLevels; i++)
             {
-                levels.Add(new Docks<ITransport>(levelCapacity, pictureWidth,
+                newLevels.Add(new Docks<ITransport>(i, levelCapacity, pictureWidth,
                     pictureHeight));
             }
+            return newLevels;
         }
 
         public Docks<ITransport> this[int index]
@@ -49,8 +50,8 @@ namespace Ships
                 saveFile.Write("number_of_levels " + levels.Count);
                 foreach (var level in levels)
                 {
-                    if (level.IsEmpty) continue;
-                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, level);
+                    if (level.TakenSpacesNumber == 0) continue;
+                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, level.Index + 1);
                     foreach (ITransport ship in level)
                     {
                         if (ship == null) continue;
@@ -65,8 +66,6 @@ namespace Ships
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException();
             string[] dataStrings = CopyDataToStringArray(filePath);
-            if (dataStrings.Length == 0 || !CheckDataCorrectness(dataStrings))
-                throw new Exception("Неверный формат файла");
             ReplaceData(dataStrings);
         }
 
@@ -84,81 +83,32 @@ namespace Ships
             return dataStrings;
         }
 
-        private bool CheckDataCorrectness(string[] dataStrings)
-        {
-            string[] data = dataStrings[0].Split(' ');
-            if (!CheckLevelsNumberCorrectness(data)) return false;
-            bool levelsMarked = false;
-            for (int i = 1; i < dataStrings.Length; i++)
-            {
-                data = dataStrings[i].Split(' ');
-                if (data.Length != 2) return false;
-                if (data[0] == "level")
-                {
-                    if (!CheckLevelDataCorrectness(data)) return false;
-                    else levelsMarked = true;
-                }
-                else if (levelsMarked && (data[0] == "warship" || data[0] == "battleship"))
-                {
-                    if (!CheckShipDataCorrectness(data)) return false;
-                }
-                else return false;
-            }
-            return true;
-        }
-
-        private bool CheckLevelsNumberCorrectness(string[] data)
-        {
-            if (data[0] != "number_of_levels"
-                || !int.TryParse(data[1], out int numberOfLevels))
-                return false;
-            return true;
-        }
-
-        private bool CheckLevelDataCorrectness(string[] data)
-        {
-            if (!int.TryParse(data[1], out int result))
-                return false;
-            return true;
-        }
-
-        private bool CheckShipDataCorrectness(string[] data)
-        {
-            string[] shipParameters = data[1].Split('/');
-            if (shipParameters.Length < 4
-                || !int.TryParse(shipParameters[0], out int index)
-                || !int.TryParse(shipParameters[1], out int maxSpeed)
-                || !float.TryParse(shipParameters[2], out float weight)
-                || data[0] == "battleship" && (shipParameters.Length != 7
-                || !int.TryParse(shipParameters[4], out int numberOfCannons)
-                || !bool.TryParse(shipParameters[5], out bool flag)))
-                return false;
-            return true;
-        }
-
-
         private void ReplaceData(string[] dataStrings)
         {
-            int numberOfLevels = int.Parse(dataStrings[0].Split(' ')[1]);
-            levels.Clear();
-            CreateLevels(numberOfLevels, pictureWidth, pictureHeight);
-            int currentLevel = 0;
+            string[] numberOfLevelsSetting = dataStrings[0].Split(' ');
+            if (numberOfLevelsSetting.Length != 2 || numberOfLevelsSetting[0] != "number_of_levels")
+                throw new FormatException();
+            int numberOfLevels = int.Parse(numberOfLevelsSetting[1]);
+            List<Docks<ITransport>> loadedLevels = CreateLevels(numberOfLevels, pictureWidth, pictureHeight);
+            int levelIndex = 0;
             for (int i = 1; i < dataStrings.Length; i++)
             {
                 string[] data = dataStrings[i].Split(' ');
+                if (data.Length != 2) throw new FormatException();
                 if (data[0] == "level")
                 {
-                    currentLevel = int.Parse(data[1]);
+                    levelIndex = int.Parse(data[1]) - 1;
                     continue;
                 }
-                ITransport ship = null;
+                Vehicle ship = null;
                 if (data[0] == "warship")
                     ship = new Warship(data[1]);
                 else if (data[0] == "battleship")
                     ship = new Battleship(data[1]);
-                int shipIndex = int.Parse(data[2]);
-                levels[currentLevel][shipIndex] = ship;
+                else throw new FormatException();
+                loadedLevels[levelIndex][ship.Index] = ship;
             }
+            levels = loadedLevels;
         }
 
         public void Sort()

@@ -22,14 +22,17 @@ namespace Ships
 
         public int GetKey { get { return new List<int>(spaces.Keys)[currentIndex]; } }
 
-        public bool IsEmpty { get { return spaces.Count == 0; } }
+        public int TakenSpacesNumber { get { return spaces.Count; } }
+
+        public int Index { get; private set; }
 
         private int PictureWidth { get; set; }
         private int PictureHeight { get; set; }
 
-        public Docks(int numberOfSpaces, int pictureWidth, int pictureHeight)
+        public Docks(int index, int numberOfSpaces, int pictureWidth, int pictureHeight)
         {
             spaces = new Dictionary<int, T>();
+            Index = index;
             n = numberOfSpaces;
             currentIndex = -1;
             PictureWidth = pictureWidth;

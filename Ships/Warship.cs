@@ -8,8 +8,6 @@ namespace Ships
         protected const int warshipWidth = 230;
         protected const int warshipHeight = 60;
 
-        public int Index { get; protected set; }
-
         public Warship(int index, int maxSpeed, float weight, Color mainColor)
         {
             Index = index;
@@ -21,7 +19,7 @@ namespace Ships
         public Warship(string data)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 4) return;
+            if (parameters.Length != 4) throw new FormatException();
             Index = int.Parse(parameters[0]);
             MaxSpeed = int.Parse(parameters[1]);
             Weight = int.Parse(parameters[2]);
@@ -116,7 +114,7 @@ namespace Ships
 
         public override string ToString()
         {
-            return Index + '/' + MaxSpeed + '/' + Weight + '/' + MainColor.Name;
+            return Index + "/" + MaxSpeed + "/" + Weight + "/" + MainColor.Name;
         }
 
         public int CompareTo(Warship other)

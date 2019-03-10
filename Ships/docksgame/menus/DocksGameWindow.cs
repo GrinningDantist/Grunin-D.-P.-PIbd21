@@ -39,13 +39,15 @@ namespace Ships
 
         private void btnSelectShip_Click(object sender, EventArgs e)
         {
-            if (levelList.SelectedIndex == -1)
+            int levelIndex = levelList.SelectedIndex;
+            if (levelIndex == -1)
             {
                 MessageBox.Show("Уровень не выбран", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            menu = new WarshipSelectionMenu();
+            int shipIndex = levels[levelIndex].TakenSpacesNumber;
+            menu = new WarshipSelectionMenu(shipIndex);
             menu.AddEvent(AddShip);
             menu.gameWindow = this;
             menu.Show();
@@ -147,6 +149,11 @@ namespace Ships
                 catch (SpaceTakenException ex)
                 {
                     MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Неверный формат данных. Файл повреждён или не является файлом сохранения",
+                        "Ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {

@@ -11,12 +11,15 @@ namespace Ships
 
         public event ShipDel eventAddShip;
 
+        private int shipIndex;
+
         private bool btnMainColorPressed = false;
         private bool btnFlagColorPressed = false;
 
-        public WarshipSelectionMenu()
+        public WarshipSelectionMenu(int shipIndex)
         {
             InitializeComponent();
+            this.shipIndex = shipIndex;
             this.btnCancel.Click += (object sender, System.EventArgs e) => Close();
         }
 
@@ -76,10 +79,10 @@ namespace Ships
                 switch (e.Data.GetData(DataFormats.Text).ToString())
                 {
                     case "ВОЕННЫЙ КОРАБЛЬ":
-                        ship = new Warship(100, 1000, Color.Gray);
+                        ship = new Warship(shipIndex, 100, 1000, Color.Gray);
                         break;
                     case "ЛИНКОР":
-                        ship = new Battleship(100, 1000, Color.Gray,
+                        ship = new Battleship(shipIndex, 100, 1000, Color.Gray,
                     Color.Red, true);
                         break;
                 }
