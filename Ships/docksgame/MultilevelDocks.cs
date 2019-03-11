@@ -51,7 +51,7 @@ namespace Ships
                 for (int i = 0; i < levels.Count; i++)
                 {
                     if (levels[i].IsEmpty) continue;
-                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, levels[i]);
+                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, i + 1);
                     for (int j = 0; j < levelCapacity; j++)
                     {
                         try
