@@ -111,6 +111,7 @@ namespace Ships
                         ship = new Warship(data[1]);
                     else if (data[0] == "battleship")
                         ship = new Battleship(data[1]);
+                    else throw new FormatException();
                 }
                 else throw new FormatException();
                 int shipIndex = int.Parse(data[2]);
