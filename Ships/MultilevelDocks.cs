@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -50,7 +50,7 @@ namespace Ships
                 for (int i = 0; i < levels.Count; i++)
                 {
                     if (levels[i].IsEmpty) continue;
-                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, levels[i]);
+                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, i + 1);
                     for (int j = 0; j < levelCapacity; j++)
                     {
                         var ship = levels[i][j];
@@ -112,7 +112,8 @@ namespace Ships
         private bool CheckLevelsNumberCorrectness(string[] data)
         {
             if (data.Length != 2 || data[0] != "number_of_levels"
-                || !int.TryParse(data[1], out int numberOfLevels))
+                || !int.TryParse(data[1], out int numberOfLevels)
+                || numberOfLevels <= 0)
                 return false;
             return true;
         }
@@ -146,13 +147,13 @@ namespace Ships
             int numberOfLevels = int.Parse(dataStrings[0].Split(' ')[1]);
             levels.Clear();
             CreateLevels(numberOfLevels, pictureWidth, pictureHeight);
-            int currentLevel = 0;
+            int levelIndex = 0;
             for (int i = 1; i < dataStrings.Length; i++)
             {
                 string[] data = dataStrings[i].Split(' ');
                 if (data[0] == "level")
                 {
-                    currentLevel = int.Parse(data[1]);
+                    levelIndex = int.Parse(data[1]) - 1;
                     continue;
                 }
                 ITransport ship = null;
@@ -161,7 +162,7 @@ namespace Ships
                 else if (data[0] == "battleship")
                     ship = new Battleship(data[1]);
                 int shipIndex = int.Parse(data[2]);
-                levels[currentLevel][shipIndex] = ship;
+                levels[levelIndex][shipIndex] = ship;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Ships
@@ -43,7 +43,7 @@ namespace Ships
 
         public static T operator -(Docks<T> docks, int index)
         {
-            if (index < 0 || index > docks.n)
+            if (index < 0 || index >= docks.n)
                 return null;
             if (!docks.CheckSpaceAvailabiliy(index))
             {
