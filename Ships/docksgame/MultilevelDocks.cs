@@ -50,19 +50,19 @@ namespace Ships
                 saveFile.Write("number_of_levels " + levels.Count);
                 for (int i = 0; i < levels.Count; i++)
                 {
-                    try
+                    if (levels[i].IsEmpty) continue;
+                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, levels[i]);
+                    for (int j = 0; j < levelCapacity; j++)
                     {
-                        if (levels[i].IsEmpty) continue;
-                        saveFile.Write("{0}{0}level {1}", Environment.NewLine, levels[i]);
-                        for (int j = 0; j < levelCapacity; j++)
+                        try
                         {
                             var ship = levels[i][j];
                             if (ship == null) continue;
                             string shipType = ship.GetType().Name.ToLower();
                             saveFile.Write(Environment.NewLine + shipType + " " + ship + " " + j);
                         }
+                        catch (ShipNotFoundException ex) { }
                     }
-                    finally { }
                 }
             }
         }
