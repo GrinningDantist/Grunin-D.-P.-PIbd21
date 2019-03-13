@@ -94,7 +94,8 @@ namespace Ships
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 bool loadedSuccessfully = levels.LoadData(openFileDialog.FileName);
-                if (!loadedSuccessfully)
+                if (loadedSuccessfully) Draw();
+                else
                 {
                     MessageBox.Show("Ошибка чтения файла. Файл повреждён или содержит неверные данные",
                         "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
