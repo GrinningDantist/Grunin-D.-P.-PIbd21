@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ships.docksgame.exceptions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -43,6 +44,8 @@ namespace Ships
         {
             if (docks.spaces.Count == docks.n)
                 throw new DocksOverflowException();
+            else if (CheckIfShipAlreadyExists(docks, ship))
+                throw new ShipAlreadyExistsException();
             for (int i = 0; i < docks.n; i++)
             {
                 if (docks.CheckSpaceAvailabiliy(i))
@@ -54,6 +57,20 @@ namespace Ships
                 }
             }
             return -1;
+        }
+        
+        public static bool CheckIfShipAlreadyExists(Docks<T> docks, T ship)
+        {
+            foreach (T other in docks.spaces.Values)
+            {
+                bool alreadyExists = false;
+                if (ship is Warship && other is Warship)
+                    alreadyExists = (ship as Warship).Equals(other as Warship);
+                if (ship is Battleship && other is Battleship)
+                    alreadyExists = (ship as Battleship).Equals(other as Battleship);
+                if (alreadyExists) return true;
+            }
+            return false;
         }
 
         public static T operator -(Docks<T> docks, int index)
@@ -143,8 +160,8 @@ namespace Ships
                         if (other.spaces[thisKeys[i]] is Battleship) return 1;
                         else if (other.spaces[thisKeys[i]] is Warship)
                         {
-                            return (spaces[thisKeys[i]] is Warship).CompareTo(other.spaces[thisKeys[i]]
-                                is Warship);
+                            return (spaces[thisKeys[i]] as Warship).CompareTo(other.spaces[thisKeys[i]]
+                                as Warship);
                         }
                     }
                     else if (spaces[thisKeys[i]] is Battleship)
@@ -153,8 +170,8 @@ namespace Ships
                             return -1;
                         else if (other.spaces[thisKeys[i]] is Battleship)
                         {
-                            return (spaces[thisKeys[i]] is Battleship).CompareTo(other.spaces[thisKeys[i]]
-                                is Battleship);
+                            return (spaces[thisKeys[i]] as Battleship).CompareTo(other.spaces[thisKeys[i]]
+                                as Battleship);
                         }
                     }
                 }
