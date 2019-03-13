@@ -130,8 +130,8 @@ namespace Ships
 
         public int CompareTo(Docks<T> other)
         {
-            if (spaces.Count < other.spaces.Count) return -1;
-            else if (spaces.Count > other.spaces.Count) return 1;
+            if (spaces.Count < other.spaces.Count) return 1;
+            else if (spaces.Count > other.spaces.Count) return -1;
             else if (spaces.Count > 0)
             {
                 var thisKeys = new List<int>(spaces.Keys);
@@ -140,7 +140,7 @@ namespace Ships
                 {
                     if (spaces[thisKeys[i]] is Warship)
                     {
-                        if (other.spaces[thisKeys[i]] is Battleship) return -1;
+                        if (other.spaces[thisKeys[i]] is Battleship) return 1;
                         else if (other.spaces[thisKeys[i]] is Warship)
                         {
                             return (spaces[thisKeys[i]] is Warship).CompareTo(other.spaces[thisKeys[i]]
@@ -150,7 +150,7 @@ namespace Ships
                     else if (spaces[thisKeys[i]] is Battleship)
                     {
                         if (other.spaces[thisKeys[i]] is Warship)
-                            return 1;
+                            return -1;
                         else if (other.spaces[thisKeys[i]] is Battleship)
                         {
                             return (spaces[thisKeys[i]] is Battleship).CompareTo(other.spaces[thisKeys[i]]

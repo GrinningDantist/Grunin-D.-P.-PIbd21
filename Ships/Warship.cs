@@ -120,7 +120,7 @@ namespace Ships
         public int CompareTo(Warship other)
         {
             if (other == null)
-                return -1;
+                return 1;
             if (MaxSpeed != other.MaxSpeed)
                 return MaxSpeed.CompareTo(other.MaxSpeed);
             else if (Weight != other.Weight)
