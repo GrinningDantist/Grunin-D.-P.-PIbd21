@@ -208,7 +208,7 @@
             // 
             // colorBlack
             // 
-            this.colorBlack.BackColor = System.Drawing.Color.Black;
+            this.colorBlack.BackColor = System.Drawing.Color.Cyan;
             this.colorBlack.Location = new System.Drawing.Point(6, 26);
             this.colorBlack.Name = "colorBlack";
             this.colorBlack.Size = new System.Drawing.Size(38, 38);
