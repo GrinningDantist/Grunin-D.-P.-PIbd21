@@ -25,10 +25,10 @@ namespace Ships
             NumberOfCannons = new Random().Next(1, 4);
         }
 
-        public Battleship(string data) : base(data)
+        public Battleship(string data, out bool success) : base(data, out success)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 7) throw new FormatException();
+            if (parameters.Length != 7) { success = false; return; }
             Index = int.Parse(parameters[0]);
             MaxSpeed = int.Parse(parameters[1]);
             Weight = int.Parse(parameters[2]);
@@ -36,6 +36,7 @@ namespace Ships
             numberOfCannons = int.Parse(parameters[4]);
             Flag = bool.Parse(parameters[5]);
             FlagColor = Color.FromName(parameters[6]);
+            success = true;
         }
 
         public override void DrawTransport(Graphics g)

@@ -16,14 +16,15 @@ namespace Ships
             MainColor = mainColor;
         }
 
-        public Warship(string data)
+        public Warship(string data, out bool success)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 4) throw new FormatException();
+            if (parameters.Length != 4) { success = false; return; }
             Index = int.Parse(parameters[0]);
             MaxSpeed = int.Parse(parameters[1]);
             Weight = int.Parse(parameters[2]);
             MainColor = Color.FromName(parameters[3]);
+            success = true;
         }
 
         public override void MoveTransport(Direction direction)

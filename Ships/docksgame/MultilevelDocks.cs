@@ -101,11 +101,10 @@ namespace Ships
                     continue;
                 }
                 Vehicle ship = null;
-                if (data[0] == "warship")
-                    ship = new Warship(data[1]);
-                else if (data[0] == "battleship")
-                    ship = new Battleship(data[1]);
-                else throw new FormatException();
+                bool successful = false;
+                if (data[0] == "warship") ship = new Warship(data[1], out successful);
+                else if (data[0] == "battleship") ship = new Battleship(data[1], out successful);
+                if (!successful) throw new FormatException();
                 loadedLevels[levelIndex][ship.Index] = ship;
             }
             levels = loadedLevels;
