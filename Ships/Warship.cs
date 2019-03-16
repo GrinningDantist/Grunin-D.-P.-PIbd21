@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 
 namespace Ships
@@ -15,13 +15,14 @@ namespace Ships
             MainColor = mainColor;
         }
 
-        public Warship(string data)
+        public Warship(string data, out bool success)
         {
             string[] parameters = data.Split('/');
-            if (parameters.Length != 3) throw new FormatException();
+            if (parameters.Length != 3)  { success = false; return; } 
             MaxSpeed = int.Parse(parameters[0]);
             Weight = int.Parse(parameters[1]);
             MainColor = Color.FromName(parameters[2]);
+            success = true;
         }
 
         public override void MoveTransport(Direction direction)
