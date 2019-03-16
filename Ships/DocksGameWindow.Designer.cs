@@ -47,7 +47,7 @@
             this.drawingArea.Dock = System.Windows.Forms.DockStyle.Left;
             this.drawingArea.Location = new System.Drawing.Point(0, 0);
             this.drawingArea.Name = "drawingArea";
-            this.drawingArea.Size = new System.Drawing.Size(707, 456);
+            this.drawingArea.Size = new System.Drawing.Size(707, 512);
             this.drawingArea.TabIndex = 1;
             this.drawingArea.TabStop = false;
             // 
@@ -144,7 +144,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(958, 456);
+            this.ClientSize = new System.Drawing.Size(958, 512);
             this.Controls.Add(this.levelList);
             this.Controls.Add(this.pickUpMenu);
             this.Controls.Add(this.btnSelectShip);
