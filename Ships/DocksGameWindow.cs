@@ -1,5 +1,4 @@
 using NLog;
-using Ships.docksgame.exceptions;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
