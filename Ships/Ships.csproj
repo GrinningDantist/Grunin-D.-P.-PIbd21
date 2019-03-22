@@ -56,38 +56,38 @@
   <ItemGroup>
     <Compile Include="Battleship.cs" />
     <Compile Include="Direction.cs" />
-    <Compile Include="docksgame\Docks.cs" />
-    <Compile Include="docksgame\menus\DocksGameWindow.cs">
+    <Compile Include="Docks.cs" />
+    <Compile Include="DocksGameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="docksgame\menus\DocksGameWindow.Designer.cs">
+    <Compile Include="DocksGameWindow.Designer.cs">
       <DependentUpon>DocksGameWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="docksgame\exceptions\DocksOverflowException.cs" />
-    <Compile Include="docksgame\MultilevelDocks.cs" />
-    <Compile Include="sailinggame\SailingGameWindow.cs">
+    <Compile Include="DocksOverflowException.cs" />
+    <Compile Include="MultilevelDocks.cs" />
+    <Compile Include="SailingGameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="sailinggame\SailingGameWindow.Designer.cs">
+    <Compile Include="SailingGameWindow.Designer.cs">
       <DependentUpon>SailingGameWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ITransport.cs" />
-    <Compile Include="docksgame\exceptions\ShipNotFoundException.cs" />
-    <Compile Include="docksgame\exceptions\SpaceTakenException.cs" />
+    <Compile Include="ShipNotFoundException.cs" />
+    <Compile Include="SpaceTakenException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Warship.cs" />
-    <Compile Include="docksgame\menus\WarshipSelectionMenu.cs">
+    <Compile Include="WarshipSelectionMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="docksgame\menus\WarshipSelectionMenu.Designer.cs">
+    <Compile Include="WarshipSelectionMenu.Designer.cs">
       <DependentUpon>WarshipSelectionMenu.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="docksgame\menus\DocksGameWindow.resx">
+    <EmbeddedResource Include="DocksGameWindow.resx">
       <DependentUpon>DocksGameWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="sailinggame\SailingGameWindow.resx">
+    <EmbeddedResource Include="SailingGameWindow.resx">
       <DependentUpon>SailingGameWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -99,7 +99,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="docksgame\menus\WarshipSelectionMenu.resx">
+    <EmbeddedResource Include="WarshipSelectionMenu.resx">
       <DependentUpon>WarshipSelectionMenu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
