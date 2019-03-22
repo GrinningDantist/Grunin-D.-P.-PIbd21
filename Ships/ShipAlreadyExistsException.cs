@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ships.docksgame.exceptions
+namespace Ships
 {
     class ShipAlreadyExistsException : Exception
     {
