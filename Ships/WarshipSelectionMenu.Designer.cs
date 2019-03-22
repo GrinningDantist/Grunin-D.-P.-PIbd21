@@ -59,9 +59,11 @@
             this.typeButtons.Controls.Add(this.lblWarship);
             this.typeButtons.Font = new System.Drawing.Font("Impact", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.typeButtons.ForeColor = System.Drawing.Color.White;
-            this.typeButtons.Location = new System.Drawing.Point(12, 12);
+            this.typeButtons.Location = new System.Drawing.Point(8, 8);
+            this.typeButtons.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.typeButtons.Name = "typeButtons";
-            this.typeButtons.Size = new System.Drawing.Size(181, 124);
+            this.typeButtons.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.typeButtons.Size = new System.Drawing.Size(121, 81);
             this.typeButtons.TabIndex = 8;
             this.typeButtons.TabStop = false;
             this.typeButtons.Text = "ТИП";
@@ -71,9 +73,10 @@
             this.lblBattleship.BackColor = System.Drawing.Color.White;
             this.lblBattleship.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblBattleship.ForeColor = System.Drawing.Color.Black;
-            this.lblBattleship.Location = new System.Drawing.Point(6, 71);
+            this.lblBattleship.Location = new System.Drawing.Point(4, 46);
+            this.lblBattleship.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBattleship.Name = "lblBattleship";
-            this.lblBattleship.Size = new System.Drawing.Size(170, 38);
+            this.lblBattleship.Size = new System.Drawing.Size(114, 25);
             this.lblBattleship.TabIndex = 1;
             this.lblBattleship.Text = "ЛИНКОР";
             this.lblBattleship.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -84,9 +87,10 @@
             this.lblWarship.BackColor = System.Drawing.Color.White;
             this.lblWarship.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblWarship.ForeColor = System.Drawing.Color.Black;
-            this.lblWarship.Location = new System.Drawing.Point(6, 23);
+            this.lblWarship.Location = new System.Drawing.Point(4, 15);
+            this.lblWarship.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblWarship.Name = "lblWarship";
-            this.lblWarship.Size = new System.Drawing.Size(170, 38);
+            this.lblWarship.Size = new System.Drawing.Size(114, 25);
             this.lblWarship.TabIndex = 0;
             this.lblWarship.Text = "ВОЕННЫЙ КОРАБЛЬ";
             this.lblWarship.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -97,9 +101,10 @@
             this.picturePanel.AllowDrop = true;
             this.picturePanel.BackColor = System.Drawing.Color.Transparent;
             this.picturePanel.Controls.Add(this.warshipPicture);
-            this.picturePanel.Location = new System.Drawing.Point(199, 12);
+            this.picturePanel.Location = new System.Drawing.Point(133, 8);
+            this.picturePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picturePanel.Name = "picturePanel";
-            this.picturePanel.Size = new System.Drawing.Size(359, 124);
+            this.picturePanel.Size = new System.Drawing.Size(239, 81);
             this.picturePanel.TabIndex = 9;
             this.picturePanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.picturePanel_DragDrop);
             this.picturePanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.picturePanel_DragEnter);
@@ -107,9 +112,8 @@
             // warshipPicture
             // 
             this.warshipPicture.Location = new System.Drawing.Point(0, 0);
-            this.warshipPicture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.warshipPicture.Name = "warshipPicture";
-            this.warshipPicture.Size = new System.Drawing.Size(359, 124);
+            this.warshipPicture.Size = new System.Drawing.Size(239, 81);
             this.warshipPicture.TabIndex = 4;
             this.warshipPicture.TabStop = false;
             // 
@@ -128,9 +132,11 @@
             this.colorPalette.Controls.Add(this.colorGray);
             this.colorPalette.Font = new System.Drawing.Font("Impact", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.colorPalette.ForeColor = System.Drawing.Color.White;
-            this.colorPalette.Location = new System.Drawing.Point(199, 144);
+            this.colorPalette.Location = new System.Drawing.Point(133, 94);
+            this.colorPalette.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorPalette.Name = "colorPalette";
-            this.colorPalette.Size = new System.Drawing.Size(358, 126);
+            this.colorPalette.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.colorPalette.Size = new System.Drawing.Size(239, 82);
             this.colorPalette.TabIndex = 10;
             this.colorPalette.TabStop = false;
             this.colorPalette.Text = "ЦВЕТА";
@@ -140,9 +146,10 @@
             this.btnFlagColor.BackColor = System.Drawing.Color.White;
             this.btnFlagColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFlagColor.ForeColor = System.Drawing.Color.Black;
-            this.btnFlagColor.Location = new System.Drawing.Point(182, 70);
+            this.btnFlagColor.Location = new System.Drawing.Point(121, 45);
+            this.btnFlagColor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnFlagColor.Name = "btnFlagColor";
-            this.btnFlagColor.Size = new System.Drawing.Size(170, 38);
+            this.btnFlagColor.Size = new System.Drawing.Size(113, 25);
             this.btnFlagColor.TabIndex = 9;
             this.btnFlagColor.Text = "ДОПОЛНИТЕЛЬНЫЙ";
             this.btnFlagColor.UseVisualStyleBackColor = false;
@@ -153,9 +160,10 @@
             this.btnMainColor.BackColor = System.Drawing.Color.White;
             this.btnMainColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMainColor.ForeColor = System.Drawing.Color.Black;
-            this.btnMainColor.Location = new System.Drawing.Point(6, 70);
+            this.btnMainColor.Location = new System.Drawing.Point(4, 45);
+            this.btnMainColor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMainColor.Name = "btnMainColor";
-            this.btnMainColor.Size = new System.Drawing.Size(170, 38);
+            this.btnMainColor.Size = new System.Drawing.Size(113, 25);
             this.btnMainColor.TabIndex = 8;
             this.btnMainColor.Text = "ОСНОВНОЙ";
             this.btnMainColor.UseVisualStyleBackColor = false;
@@ -164,45 +172,50 @@
             // colorBlue
             // 
             this.colorBlue.BackColor = System.Drawing.Color.Blue;
-            this.colorBlue.Location = new System.Drawing.Point(226, 26);
+            this.colorBlue.Location = new System.Drawing.Point(151, 17);
+            this.colorBlue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorBlue.Name = "colorBlue";
-            this.colorBlue.Size = new System.Drawing.Size(38, 38);
+            this.colorBlue.Size = new System.Drawing.Size(25, 25);
             this.colorBlue.TabIndex = 7;
             this.colorBlue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
             // colorWhite
             // 
             this.colorWhite.BackColor = System.Drawing.Color.White;
-            this.colorWhite.Location = new System.Drawing.Point(182, 26);
+            this.colorWhite.Location = new System.Drawing.Point(121, 17);
+            this.colorWhite.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorWhite.Name = "colorWhite";
-            this.colorWhite.Size = new System.Drawing.Size(38, 38);
+            this.colorWhite.Size = new System.Drawing.Size(25, 25);
             this.colorWhite.TabIndex = 6;
             this.colorWhite.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
             // colorYellow
             // 
             this.colorYellow.BackColor = System.Drawing.Color.Yellow;
-            this.colorYellow.Location = new System.Drawing.Point(270, 26);
+            this.colorYellow.Location = new System.Drawing.Point(180, 17);
+            this.colorYellow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorYellow.Name = "colorYellow";
-            this.colorYellow.Size = new System.Drawing.Size(38, 38);
+            this.colorYellow.Size = new System.Drawing.Size(25, 25);
             this.colorYellow.TabIndex = 5;
             this.colorYellow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
             // colorOrange
             // 
             this.colorOrange.BackColor = System.Drawing.Color.Orange;
-            this.colorOrange.Location = new System.Drawing.Point(314, 26);
+            this.colorOrange.Location = new System.Drawing.Point(209, 17);
+            this.colorOrange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorOrange.Name = "colorOrange";
-            this.colorOrange.Size = new System.Drawing.Size(38, 38);
+            this.colorOrange.Size = new System.Drawing.Size(25, 25);
             this.colorOrange.TabIndex = 4;
             this.colorOrange.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
             // colorGreen
             // 
             this.colorGreen.BackColor = System.Drawing.Color.Green;
-            this.colorGreen.Location = new System.Drawing.Point(50, 26);
+            this.colorGreen.Location = new System.Drawing.Point(33, 17);
+            this.colorGreen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorGreen.Name = "colorGreen";
-            this.colorGreen.Size = new System.Drawing.Size(38, 38);
+            this.colorGreen.Size = new System.Drawing.Size(25, 25);
             this.colorGreen.TabIndex = 3;
             this.colorGreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
@@ -211,25 +224,27 @@
             this.colorBlack.BackColor = System.Drawing.Color.Cyan;
             this.colorBlack.Location = new System.Drawing.Point(6, 26);
             this.colorBlack.Name = "colorBlack";
-            this.colorBlack.Size = new System.Drawing.Size(38, 38);
+            this.colorBlack.Size = new System.Drawing.Size(25, 25);
             this.colorBlack.TabIndex = 2;
             this.colorBlack.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
             // colorRed
             // 
             this.colorRed.BackColor = System.Drawing.Color.Red;
-            this.colorRed.Location = new System.Drawing.Point(94, 26);
+            this.colorRed.Location = new System.Drawing.Point(63, 17);
+            this.colorRed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorRed.Name = "colorRed";
-            this.colorRed.Size = new System.Drawing.Size(38, 38);
+            this.colorRed.Size = new System.Drawing.Size(25, 25);
             this.colorRed.TabIndex = 1;
             this.colorRed.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
             // colorGray
             // 
             this.colorGray.BackColor = System.Drawing.Color.Gray;
-            this.colorGray.Location = new System.Drawing.Point(138, 26);
+            this.colorGray.Location = new System.Drawing.Point(92, 17);
+            this.colorGray.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.colorGray.Name = "colorGray";
-            this.colorGray.Size = new System.Drawing.Size(38, 38);
+            this.colorGray.Size = new System.Drawing.Size(25, 25);
             this.colorGray.TabIndex = 0;
             this.colorGray.MouseDown += new System.Windows.Forms.MouseEventHandler(this.color_MouseDown);
             // 
@@ -239,9 +254,10 @@
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Impact", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAdd.ForeColor = System.Drawing.Color.Black;
-            this.btnAdd.Location = new System.Drawing.Point(18, 170);
+            this.btnAdd.Location = new System.Drawing.Point(12, 110);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(170, 38);
+            this.btnAdd.Size = new System.Drawing.Size(113, 25);
             this.btnAdd.TabIndex = 15;
             this.btnAdd.Text = "ДОБАВИТЬ";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -253,25 +269,27 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Impact", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCancel.ForeColor = System.Drawing.Color.Black;
-            this.btnCancel.Location = new System.Drawing.Point(18, 214);
+            this.btnCancel.Location = new System.Drawing.Point(12, 139);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(170, 38);
+            this.btnCancel.Size = new System.Drawing.Size(113, 25);
             this.btnCancel.TabIndex = 16;
             this.btnCancel.Text = "ОТМЕНА";
             this.btnCancel.UseVisualStyleBackColor = false;
             // 
             // WarshipSelectionMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(568, 281);
+            this.ClientSize = new System.Drawing.Size(379, 183);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.colorPalette);
             this.Controls.Add(this.picturePanel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.typeButtons);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "WarshipSelectionMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор корабля";
