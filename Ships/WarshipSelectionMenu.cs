@@ -20,6 +20,7 @@ namespace Ships
         {
             InitializeComponent();
             this.shipIndex = shipIndex;
+=======
             this.btnCancel.Click += (object sender, System.EventArgs e) => Close();
         }
 
