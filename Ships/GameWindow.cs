@@ -7,7 +7,7 @@ namespace Ships
 {
     public partial class GameWindow : Form
     {
-        private Battleship ship;
+        private ITransport ship;
 
         private System.Timers.Timer delayTimer;
         private System.Timers.Timer moveTimer;
@@ -15,18 +15,25 @@ namespace Ships
         private Direction dirX = Direction.None;
         private Direction dirY = Direction.None;
 
+        private bool gameStarted = false;
+
         public GameWindow()
         {
             InitializeComponent();
-            CreateBattleship();
-            SetDelayTimer();
-            SetMoveTimer();
         }
 
-        private void CreateBattleship()
+        private void CreateWarship()
         {
             Random rnd = new Random();
-            ship = new Battleship(rnd.Next(60, 100), rnd.Next(300, 500), Color.White);
+            ship = new Warship(rnd.Next(60, 100), rnd.Next(300, 500), Color.Gray);
+            ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
+            Draw();
+        }
+
+        private void CreateCruiser()
+        {
+            Random rnd = new Random();
+            ship = new Battleship(rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
@@ -35,7 +42,7 @@ namespace Ships
         {
             Bitmap bmp = new Bitmap(drawingArea.Width, drawingArea.Height);
             Graphics g = Graphics.FromImage(bmp);
-            ship.DrawBattleship(g);
+            ship.DrawTransport(g);
             drawingArea.Image = bmp;
         }
 
@@ -64,19 +71,36 @@ namespace Ships
 
         private void MoveTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            ship.MoveBattleship(dirX);
-            ship.MoveBattleship(dirY);
+            ship.MoveTransport(dirX);
+            ship.MoveTransport(dirY);
             Draw();
         }
 
+        private void btnWarship_Click(object sender, EventArgs e)
+        {
+            CreateWarship();
+            SetDelayTimer();
+            SetMoveTimer();
+            gameStarted = true;
+        }
+
+        private void btnCruiser_Click(object sender, EventArgs e)
+        {
+            CreateCruiser();
+            SetDelayTimer();
+            SetMoveTimer();
+            gameStarted = true;
+        }
+        
         private void GameWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            if (!gameStarted) return;
             switch (e.KeyCode)
             {
-                case (Keys.Left): dirX = Direction.Left; break;
-                case (Keys.Right): dirX = Direction.Right; break;
-                case (Keys.Up): dirY = Direction.Up; break;
-                case (Keys.Down): dirY = Direction.Down; break;
+                case Keys.A: dirX = Direction.Left; break;
+                case Keys.D: dirX = Direction.Right; break;
+                case Keys.W: dirY = Direction.Up; break;
+                case Keys.S: dirY = Direction.Down; break;
                 default: return;
             }
             if (!delayTimer.Enabled && !moveTimer.Enabled)
@@ -85,11 +109,12 @@ namespace Ships
 
         private void GameWindow_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left && dirX == Direction.Left
-                || e.KeyCode == Keys.Right && dirX == Direction.Right)
+            if (!gameStarted) return;
+            if (e.KeyCode == Keys.A && dirX == Direction.Left
+                || e.KeyCode == Keys.D && dirX == Direction.Right)
                 dirX = Direction.None;
-            else if (e.KeyCode == Keys.Up && dirY == Direction.Up
-                || e.KeyCode == Keys.Down && dirY == Direction.Down)
+            else if (e.KeyCode == Keys.W && dirY == Direction.Up
+                || e.KeyCode == Keys.S && dirY == Direction.Down)
                 dirY = Direction.None;
             else return;
             if (dirX == Direction.None && dirY == Direction.None) moveTimer.Stop();
