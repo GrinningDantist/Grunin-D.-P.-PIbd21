@@ -10,7 +10,9 @@ namespace Ships
         protected int pictureWidth;
         protected int pictureHeight;
 
-        protected Direction dirX = Direction.Right;
+        protected Direction dirX = Direction.Left;
+
+        public int Index { get; protected set; }
 
         public int MaxSpeed { protected set; get; }
 
@@ -29,5 +31,10 @@ namespace Ships
         public abstract void MoveTransport(Direction direction);
 
         public abstract void DrawTransport(Graphics g);
+
+        public void Repaint(Color color)
+        {
+            MainColor = color;
+        }
     }
 }

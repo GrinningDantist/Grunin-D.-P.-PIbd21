@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Ships
 {
-    public partial class GameWindow : Form
+    public partial class SailingGameWindow : Form
     {
         private ITransport ship;
 
@@ -17,7 +17,7 @@ namespace Ships
 
         private bool gameStarted = false;
 
-        public GameWindow()
+        public SailingGameWindow()
         {
             InitializeComponent();
         }
@@ -25,15 +25,15 @@ namespace Ships
         private void CreateWarship()
         {
             Random rnd = new Random();
-            ship = new Warship(rnd.Next(60, 100), rnd.Next(300, 500), Color.Gray);
+            ship = new Warship(0, rnd.Next(60, 100), rnd.Next(300, 500), Color.Gray);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
 
-        private void CreateCruiser()
+        private void CreateBattleship()
         {
             Random rnd = new Random();
-            ship = new Battleship(rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
+            ship = new Battleship(0, rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
@@ -84,9 +84,9 @@ namespace Ships
             gameStarted = true;
         }
 
-        private void btnCruiser_Click(object sender, EventArgs e)
+        private void btnBattleship_Click(object sender, EventArgs e)
         {
-            CreateCruiser();
+            CreateBattleship();
             SetDelayTimer();
             SetMoveTimer();
             gameStarted = true;

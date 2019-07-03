@@ -3,6 +3,8 @@ using System.Windows.Forms;
 
 namespace Ships
 {
+    public delegate void ShipDel(ITransport ship);
+
     static class Program
     {
         /// <summary>
@@ -13,7 +15,7 @@ namespace Ships
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameWindow());
+            Application.Run(new DocksGameWindow());
         }
     }
 }
