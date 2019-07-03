@@ -1,4 +1,4 @@
-﻿namespace Ships
+namespace Ships
 {
     partial class DocksGameWindow
     {
@@ -29,55 +29,48 @@
         private void InitializeComponent()
         {
             this.drawingArea = new System.Windows.Forms.PictureBox();
-            this.btnMoorBattleship = new System.Windows.Forms.Button();
-            this.btnMoorWarship = new System.Windows.Forms.Button();
+            this.btnSelectShip = new System.Windows.Forms.Button();
             this.pickUpMenu = new System.Windows.Forms.GroupBox();
             this.spaceIndexField = new System.Windows.Forms.MaskedTextBox();
             this.lblSpace = new System.Windows.Forms.Label();
             this.btnPickUp = new System.Windows.Forms.Button();
             this.warshipPicture = new System.Windows.Forms.PictureBox();
+            this.levelList = new System.Windows.Forms.ListBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btnSort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
             this.pickUpMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warshipPicture)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // drawingArea
             // 
             this.drawingArea.BackColor = System.Drawing.Color.Transparent;
-            this.drawingArea.Dock = System.Windows.Forms.DockStyle.Left;
-            this.drawingArea.Location = new System.Drawing.Point(0, 0);
+            this.drawingArea.Location = new System.Drawing.Point(9, 26);
             this.drawingArea.Name = "drawingArea";
-            this.drawingArea.Size = new System.Drawing.Size(707, 456);
+            this.drawingArea.Size = new System.Drawing.Size(692, 491);
             this.drawingArea.TabIndex = 1;
             this.drawingArea.TabStop = false;
             // 
-            // btnMoorBattleship
+            // btnSelectShip
             // 
-            this.btnMoorBattleship.BackColor = System.Drawing.Color.White;
-            this.btnMoorBattleship.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMoorBattleship.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMoorBattleship.ForeColor = System.Drawing.Color.Black;
-            this.btnMoorBattleship.Location = new System.Drawing.Point(712, 47);
-            this.btnMoorBattleship.Name = "btnMoorBattleship";
-            this.btnMoorBattleship.Size = new System.Drawing.Size(239, 31);
-            this.btnMoorBattleship.TabIndex = 4;
-            this.btnMoorBattleship.Text = "ПРИШВАРТОВАТЬ ЛИНКОР";
-            this.btnMoorBattleship.UseVisualStyleBackColor = false;
-            this.btnMoorBattleship.Click += new System.EventHandler(this.btnMoorBattleship_Click);
-            // 
-            // btnMoorWarship
-            // 
-            this.btnMoorWarship.BackColor = System.Drawing.Color.White;
-            this.btnMoorWarship.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMoorWarship.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMoorWarship.ForeColor = System.Drawing.Color.Black;
-            this.btnMoorWarship.Location = new System.Drawing.Point(711, 9);
-            this.btnMoorWarship.Name = "btnMoorWarship";
-            this.btnMoorWarship.Size = new System.Drawing.Size(239, 31);
-            this.btnMoorWarship.TabIndex = 3;
-            this.btnMoorWarship.Text = "ПРИШВАРТОВАТЬ ВОЕННЫЙ КОРАБЛЬ";
-            this.btnMoorWarship.UseVisualStyleBackColor = false;
-            this.btnMoorWarship.Click += new System.EventHandler(this.btnMoorWarship_Click);
+            this.btnSelectShip.BackColor = System.Drawing.Color.White;
+            this.btnSelectShip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSelectShip.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSelectShip.ForeColor = System.Drawing.Color.Black;
+            this.btnSelectShip.Location = new System.Drawing.Point(707, 179);
+            this.btnSelectShip.Name = "btnSelectShip";
+            this.btnSelectShip.Size = new System.Drawing.Size(239, 31);
+            this.btnSelectShip.TabIndex = 3;
+            this.btnSelectShip.Text = "ВЫБРАТЬ КОРАБЛЬ";
+            this.btnSelectShip.UseVisualStyleBackColor = false;
+            this.btnSelectShip.Click += new System.EventHandler(this.btnSelectShip_Click);
             // 
             // pickUpMenu
             // 
@@ -88,7 +81,7 @@
             this.pickUpMenu.Controls.Add(this.warshipPicture);
             this.pickUpMenu.Font = new System.Drawing.Font("Impact", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.pickUpMenu.ForeColor = System.Drawing.Color.White;
-            this.pickUpMenu.Location = new System.Drawing.Point(711, 292);
+            this.pickUpMenu.Location = new System.Drawing.Point(707, 306);
             this.pickUpMenu.Margin = new System.Windows.Forms.Padding(2);
             this.pickUpMenu.Name = "pickUpMenu";
             this.pickUpMenu.Padding = new System.Windows.Forms.Padding(2);
@@ -141,36 +134,118 @@
             this.warshipPicture.TabIndex = 0;
             this.warshipPicture.TabStop = false;
             // 
+            // levelList
+            // 
+            this.levelList.BackColor = System.Drawing.Color.Black;
+            this.levelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.levelList.ForeColor = System.Drawing.Color.White;
+            this.levelList.FormattingEnabled = true;
+            this.levelList.Location = new System.Drawing.Point(707, 26);
+            this.levelList.Name = "levelList";
+            this.levelList.Size = new System.Drawing.Size(239, 145);
+            this.levelList.TabIndex = 6;
+            this.levelList.SelectedIndexChanged += new System.EventHandler(this.levelList_SelectedIndexChanged);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(958, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveButton,
+            this.loadButton});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // saveButton
+            // 
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(132, 22);
+            this.saveButton.Text = "Сохранить";
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // loadButton
+            // 
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(132, 22);
+            this.loadButton.Text = "Загрузить";
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "txt file|*.txt";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Filter = "txt file|*.txt";
+            // 
+            // btnSort
+            // 
+            this.btnSort.BackColor = System.Drawing.Color.White;
+            this.btnSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSort.Font = new System.Drawing.Font("Impact", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSort.ForeColor = System.Drawing.Color.Black;
+            this.btnSort.Location = new System.Drawing.Point(707, 216);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(239, 31);
+            this.btnSort.TabIndex = 8;
+            this.btnSort.Text = "СОРТИРОВАТЬ";
+            this.btnSort.UseVisualStyleBackColor = false;
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
+            // 
             // DocksGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(958, 456);
+            this.ClientSize = new System.Drawing.Size(958, 530);
+            this.Controls.Add(this.btnSort);
+            this.Controls.Add(this.levelList);
             this.Controls.Add(this.pickUpMenu);
-            this.Controls.Add(this.btnMoorBattleship);
-            this.Controls.Add(this.btnMoorWarship);
+            this.Controls.Add(this.btnSelectShip);
             this.Controls.Add(this.drawingArea);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "DocksGameWindow";
             this.Text = "Доки";
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).EndInit();
             this.pickUpMenu.ResumeLayout(false);
             this.pickUpMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warshipPicture)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox drawingArea;
-        private System.Windows.Forms.Button btnMoorBattleship;
-        private System.Windows.Forms.Button btnMoorWarship;
+        private System.Windows.Forms.Button btnSelectShip;
         private System.Windows.Forms.GroupBox pickUpMenu;
         private System.Windows.Forms.PictureBox warshipPicture;
         private System.Windows.Forms.MaskedTextBox spaceIndexField;
         private System.Windows.Forms.Label lblSpace;
         private System.Windows.Forms.Button btnPickUp;
+        private System.Windows.Forms.ListBox levelList;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveButton;
+        private System.Windows.Forms.ToolStripMenuItem loadButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button btnSort;
     }
 }
