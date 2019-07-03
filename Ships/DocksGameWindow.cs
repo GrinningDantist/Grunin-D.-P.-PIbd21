@@ -38,13 +38,15 @@ namespace Ships
 
         private void btnSelectShip_Click(object sender, EventArgs e)
         {
-            if (levelList.SelectedIndex == -1)
+            int levelIndex = levelList.SelectedIndex;
+            if (levelIndex == -1)
             {
                 MessageBox.Show("Уровень не выбран", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            menu = new WarshipSelectionMenu();
+            int shipIndex = levels[levelIndex].TakenSpacesNumber;
+            menu = new WarshipSelectionMenu(shipIndex);
             menu.AddEvent(AddShip);
             menu.gameWindow = this;
             menu.Show();
@@ -63,6 +65,11 @@ namespace Ships
             catch (DocksOverflowException ex)
             {
                 MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch (ShipAlreadyExistsException ex)
+            {
+                MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
             catch (Exception ex)
@@ -152,6 +159,13 @@ namespace Ships
                     MessageBox.Show(ex.Message, "Ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            levels.Sort();
+            logger.Info("Сортировка уровней");
+            Draw();
         }
     }
 }

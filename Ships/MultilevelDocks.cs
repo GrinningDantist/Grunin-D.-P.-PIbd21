@@ -27,7 +27,7 @@ namespace Ships
             List<Docks<ITransport>> newLevels = new List<Docks<ITransport>>();
             for (int i = 0; i < numberOfLevels; i++)
             {
-                newLevels.Add(new Docks<ITransport>(levelCapacity, pictureWidth,
+                newLevels.Add(new Docks<ITransport>(i, levelCapacity, pictureWidth,
                     pictureHeight));
             }
             return newLevels;
@@ -48,20 +48,15 @@ namespace Ships
             using (StreamWriter saveFile = new StreamWriter(filePath, false, Encoding.UTF8))
             {
                 saveFile.Write("number_of_levels " + levels.Count);
-                for (int i = 0; i < levels.Count; i++)
+                foreach (var level in levels)
                 {
-                    if (levels[i].IsEmpty) continue;
-                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, i + 1);
-                    for (int j = 0; j < levelCapacity; j++)
+                    if (level.TakenSpacesNumber == 0) continue;
+                    saveFile.Write("{0}{0}level {1}", Environment.NewLine, level.Index + 1);
+                    foreach (ITransport ship in level)
                     {
-                        try
-                        {
-                            var ship = levels[i][j];
-                            if (ship == null) continue;
-                            string shipType = ship.GetType().Name.ToLower();
-                            saveFile.Write(Environment.NewLine + shipType + " " + ship + " " + j);
-                        }
-                        catch (ShipNotFoundException ex) { }
+                        if (ship == null) continue;
+                        string shipType = ship.GetType().Name.ToLower();
+                        saveFile.Write(Environment.NewLine + shipType + ' ' + ship);
                     }
                 }
             }
@@ -99,24 +94,25 @@ namespace Ships
             for (int i = 1; i < dataStrings.Length; i++)
             {
                 string[] data = dataStrings[i].Split(' ');
-                Vehicle ship = null;
-                if (data.Length == 2 && data[0] == "level")
+                if (data.Length != 2) throw new FormatException();
+                if (data[0] == "level")
                 {
                     levelIndex = int.Parse(data[1]) - 1;
                     continue;
                 }
-                else if (data.Length == 3)
-                {
-                    bool successful = false; 
-                    if (data[0] == "warship") ship = new Warship(data[1], out successful); 
-                    else if (data[0] == "battleship") ship = new Battleship(data[1], out successful); 
-                    if (!successful) throw new FormatException(); 
-                }
-                else throw new FormatException();
-                int shipIndex = int.Parse(data[2]);
-                loadedLevels[levelIndex][shipIndex] = ship;
+                Vehicle ship = null;
+                bool successful = false;
+                if (data[0] == "warship") ship = new Warship(data[1], out successful);
+                else if (data[0] == "battleship") ship = new Battleship(data[1], out successful);
+                if (!successful) throw new FormatException();
+                loadedLevels[levelIndex][ship.Index] = ship;
             }
             levels = loadedLevels;
+        }
+
+        public void Sort()
+        {
+            levels.Sort();
         }
     }
 }
