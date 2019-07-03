@@ -25,7 +25,7 @@ namespace Ships
         private void CreateWarship()
         {
             Random rnd = new Random();
-            ship = new Warship(rnd.Next(60, 100), rnd.Next(300, 500), Color.Gray);
+            ship = new Warship(0, rnd.Next(60, 100), rnd.Next(300, 500), Color.Gray);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
@@ -33,7 +33,7 @@ namespace Ships
         private void CreateBattleship()
         {
             Random rnd = new Random();
-            ship = new Battleship(rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
+            ship = new Battleship(0, rnd.Next(90, 200), rnd.Next(200, 400), Color.Gray, Color.Red, true);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), drawingArea.Width, drawingArea.Height);
             Draw();
         }
