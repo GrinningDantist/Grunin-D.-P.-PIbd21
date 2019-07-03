@@ -12,6 +12,8 @@ namespace Ships
 
         protected Direction dirX = Direction.Left;
 
+        public int Index { get; protected set; }
+
         public int MaxSpeed { protected set; get; }
 
         public float Weight { protected set; get; }
@@ -29,5 +31,10 @@ namespace Ships
         public abstract void MoveTransport(Direction direction);
 
         public abstract void DrawTransport(Graphics g);
+
+        public void Repaint(Color color)
+        {
+            MainColor = color;
+        }
     }
 }
