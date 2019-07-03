@@ -1,9 +1,12 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 
 namespace Ships
 {
-    class Docks<T> where T : class, ITransport
+    class Docks<T> : IEnumerator<T>, IEnumerable<T>, IComparable<Docks<T>>
+        where T : class, ITransport
     {
         private const int spaceWidth = 350;
         private const int spaceHeight = 90;
@@ -11,23 +14,37 @@ namespace Ships
         private Dictionary<int, T> spaces;
 
         private int n;
+        private int currentIndex;
 
-        public bool IsEmpty { get { return spaces.Count == 0; } }
+        public T Current { get { return spaces[GetKey]; } }
+
+        object IEnumerator.Current { get { return Current; } }
+
+        public int GetKey { get { return new List<int>(spaces.Keys)[currentIndex]; } }
+
+        public int TakenSpacesNumber { get { return spaces.Count; } }
+
+        public int Index { get; private set; }
 
         private int PictureWidth { get; set; }
         private int PictureHeight { get; set; }
 
-        public Docks(int numberOfSpaces, int pictureWidth, int pictureHeight)
+        public Docks(int index, int numberOfSpaces, int pictureWidth, int pictureHeight)
         {
             spaces = new Dictionary<int, T>();
+            Index = index;
             n = numberOfSpaces;
+            currentIndex = -1;
             PictureWidth = pictureWidth;
             PictureHeight = pictureHeight;
         }
 
         public static int operator +(Docks<T> docks, T ship)
         {
-            if (docks.spaces.Count == docks.n) return -1;
+            if (docks.spaces.Count == docks.n)
+                throw new DocksOverflowException();
+            else if (CheckIfShipAlreadyExists(docks, ship))
+                throw new ShipAlreadyExistsException();
             for (int i = 0; i < docks.n; i++)
             {
                 if (docks.CheckSpaceAvailabiliy(i))
@@ -40,18 +57,33 @@ namespace Ships
             }
             return -1;
         }
+        
+        public static bool CheckIfShipAlreadyExists(Docks<T> docks, T ship)
+        {
+            foreach (T other in docks.spaces.Values)
+            {
+                bool alreadyExists = false;
+                if (ship is Warship && other is Warship)
+                    alreadyExists = (ship as Warship).Equals(other as Warship);
+                if (ship is Battleship && other is Battleship)
+                    alreadyExists = (ship as Battleship).Equals(other as Battleship);
+                if (alreadyExists) return true;
+            }
+            return false;
+        }
 
         public static T operator -(Docks<T> docks, int index)
         {
             if (index < 0 || index >= docks.n)
-                return null;
+                throw new IndexOutOfRangeException(
+                    "Места с данным индексом не существует");
             if (!docks.CheckSpaceAvailabiliy(index))
             {
                 T ship = docks.spaces[index];
                 docks.spaces.Remove(index);
                 return ship;
             }
-            return null;
+            throw new ShipNotFoundException(index);
         }
 
         private bool CheckSpaceAvailabiliy(int index)
@@ -62,8 +94,8 @@ namespace Ships
         public void Draw(Graphics g)
         {
             DrawBorders(g);
-            foreach (T space in spaces.Values)
-                space.DrawTransport(g);
+            foreach (T ship in spaces.Values)
+                ship.DrawTransport(g);
         }
 
         public void DrawBorders(Graphics g)
@@ -81,13 +113,78 @@ namespace Ships
             }
         }
 
+        public void Dispose()
+        {
+            spaces.Clear();
+        }
+
+        public bool MoveNext()
+        {
+            if (currentIndex + 1 >= spaces.Count)
+            {
+                Reset();
+                return false;
+            }
+            currentIndex++;
+            return true;
+        }
+
+        public void Reset()
+        {
+            currentIndex = -1;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int CompareTo(Docks<T> other)
+        {
+            if (spaces.Count < other.spaces.Count) return 1;
+            else if (spaces.Count > other.spaces.Count) return -1;
+            else if (spaces.Count > 0)
+            {
+                var thisKeys = new List<int>(spaces.Keys);
+                var otherKeys = new List<int>(other.spaces.Keys);
+                for (int i = 0; i < spaces.Count; i++)
+                {
+                    if (spaces[thisKeys[i]] is Warship)
+                    {
+                        if (other.spaces[thisKeys[i]] is Battleship) return 1;
+                        else if (other.spaces[thisKeys[i]] is Warship)
+                        {
+                            return (spaces[thisKeys[i]] as Warship).CompareTo(other.spaces[thisKeys[i]]
+                                as Warship);
+                        }
+                    }
+                    else if (spaces[thisKeys[i]] is Battleship)
+                    {
+                        if (other.spaces[thisKeys[i]] is Warship)
+                            return -1;
+                        else if (other.spaces[thisKeys[i]] is Battleship)
+                        {
+                            return (spaces[thisKeys[i]] as Battleship).CompareTo(other.spaces[thisKeys[i]]
+                                as Battleship);
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
         public T this[int i]
         {
             get
             {
                 if (spaces.ContainsKey(i))
                     return spaces[i];
-                else return null;
+                else throw new ShipNotFoundException(i);
             }
             set
             {
@@ -97,6 +194,7 @@ namespace Ships
                     spaces[i].SetPosition(5 + i / 5 * spaceWidth + 5,
                         i % 5 * spaceHeight + 15, PictureWidth, PictureHeight);
                 }
+                else throw new SpaceTakenException(i);
             }
         }
     }

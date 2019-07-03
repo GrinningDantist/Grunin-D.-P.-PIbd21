@@ -1,3 +1,4 @@
+using NLog;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,9 +13,12 @@ namespace Ships
 
         private const int numberOfLevels = 5;
 
+        private Logger logger;
+
         public DocksGameWindow()
         {
             InitializeComponent();
+            logger = LogManager.GetCurrentClassLogger();
             levels = new MultilevelDocks(numberOfLevels, drawingArea.Width,
                 drawingArea.Height);
             for (int i = 1; i <= numberOfLevels; i++)
@@ -34,13 +38,15 @@ namespace Ships
 
         private void btnSelectShip_Click(object sender, EventArgs e)
         {
-            if (levelList.SelectedIndex == -1)
+            int levelIndex = levelList.SelectedIndex;
+            if (levelIndex == -1)
             {
                 MessageBox.Show("Уровень не выбран", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            menu = new WarshipSelectionMenu();
+            int shipIndex = levels[levelIndex].TakenSpacesNumber;
+            menu = new WarshipSelectionMenu(shipIndex);
             menu.AddEvent(AddShip);
             menu.gameWindow = this;
             menu.Show();
@@ -49,26 +55,62 @@ namespace Ships
 
         private void AddShip(ITransport ship)
         {
-            int space = levels[levelList.SelectedIndex] + ship;
-            if (space > -1) Draw();
-            else MessageBox.Show("Мест нет", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            try
+            {
+                int space = levels[levelList.SelectedIndex] + ship;
+                logger.Info("Добавлен корабль " + ship.ToString()
+                    + " на место " + space);
+                Draw();
+            }
+            catch (DocksOverflowException ex)
+            {
+                MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch (ShipAlreadyExistsException ex)
+            {
+                MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void btnPickUp_Click(object sender, EventArgs e)
         {
             int levelIndex = levelList.SelectedIndex;
-            if (levelIndex == -1) return;
-            if (spaceIndexField.Text == "") return;
-            int shipIndex = int.Parse(spaceIndexField.Text);
-            ITransport ship = levels[levelIndex] - shipIndex;
-            if (ship == null) return;
-            Bitmap bmp = new Bitmap(warshipPicture.Width, warshipPicture.Height);
-            Graphics g = Graphics.FromImage(bmp);
-            ship.SetPosition(5, 5, warshipPicture.Width, warshipPicture.Height);
-            ship.DrawTransport(g);
-            warshipPicture.Image = bmp;
-            Draw();
+            if (levelIndex == -1 || spaceIndexField.Text == "") return;
+            try
+            {
+                int shipIndex = int.Parse(spaceIndexField.Text);
+                ITransport ship = levels[levelIndex] - shipIndex;
+                Bitmap bmp = new Bitmap(warshipPicture.Width, warshipPicture.Height);
+                Graphics g = Graphics.FromImage(bmp);
+                ship.SetPosition(5, 5, warshipPicture.Width, warshipPicture.Height);
+                ship.DrawTransport(g);
+                warshipPicture.Image = bmp;
+                logger.Info("Изъят корабль " + ship.ToString() + " с места "
+                    + spaceIndexField.Text);
+                Draw();
+            }
+            catch (ShipNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void levelList_SelectedIndexChanged(object sender, EventArgs e)
@@ -80,10 +122,14 @@ namespace Ships
         {
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                bool savedSuccessfully = levels.SaveData(saveFileDialog.FileName);
-                if (!savedSuccessfully)
+                try
                 {
-                    MessageBox.Show("Не удалось сохранить файл", "Ошибка",
+                    levels.SaveData(saveFileDialog.FileName);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка при сохранении",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -93,14 +139,33 @@ namespace Ships
         {
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                bool loadedSuccessfully = levels.LoadData(openFileDialog.FileName);
-                if (loadedSuccessfully) Draw();
-                else
+                try
                 {
-                    MessageBox.Show("Ошибка чтения файла. Файл повреждён или содержит неверные данные",
-                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    levels.LoadData(openFileDialog.FileName);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
+                    Draw();
+                }
+                catch (SpaceTakenException ex)
+                {
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Неверный формат данных. Файл повреждён или не является файлом сохранения",
+                        "Ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            levels.Sort();
+            logger.Info("Сортировка уровней");
+            Draw();
         }
     }
 }
